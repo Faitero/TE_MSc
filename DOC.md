@@ -16,15 +16,14 @@ $ dolar
 
 
 ### 6.  iCLIP data
-#################################################
-############## Calculate number of xlinks on a bed file
-#################################################
-##  Script is feed by a URL containing a bedgraph file of RBP xlinks per nucleotide on the human genome,
-##  and bed file of Alu exon positions
-##  Return bed file with number of xlinks sites on that fall on each Alu exon
-##
-##  Usage:
-##          bash xlinks_to_coverage.sh URL_bedgraph.bed  InputFile.bed OutputFile.bed
+
+Calculates number of xlinks on a bed file
+Script is feed by a URL containing a bedgraph file of RBP xlinks per nucleotide on the human genome,
+nd bed file of Alu exon positions
+Return bed file with number of xlinks sites on that fall on each Alu exon
+
+#### Usage:
+`bash xlinks_to_coverage.sh URL_bedgraph.bed  InputFile.bed OutputFile.bed`
 
 feed by a URL containing a bedgraph file of RBP xlinks per nucleotide on the human genome,
 and bed file of Alu exon positions
