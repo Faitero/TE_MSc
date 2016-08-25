@@ -1,4 +1,4 @@
-# General structure
+# Alu Evolutionary Analysis
 
 # Plots
 ## Plots
@@ -9,7 +9,7 @@
 @ Plots
 
 
-5.  Motives
+5.  Plots
   Plots
 
 |Link|Description|
