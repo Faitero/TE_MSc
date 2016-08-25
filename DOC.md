@@ -1,5 +1,5 @@
 # Alu Evolutionary Analysis
----
+
 
 # Plots
 ## Plots
@@ -16,7 +16,7 @@ All the programes here described are piped by `run.sh` script  [run.sh](run.sh) 
 
 Same procccess were taken for random Alus.
 
-Posteriously call all bellow scripts.
+Posteriously it calls all bellow scripts until plots.
 
 #### Usage:
 `bash run.sh`
@@ -37,16 +37,18 @@ Posteriously call all bellow scripts.
 Main script [ lift_and_procces.sh  ](scr/bash/lift_and_procces.sh )
 
 Script is feed by a bed file with Alu exons 3´ss position separated by tab
-chr      start      end     Alu_exon_ID      Alu_class      strand      3´ss_distance_to_Alu
+
+    chr      start      end     Alu_exon_ID      Alu_class      strand      3´ss_distance_to_Alu
 
 
-1) Lift over the 3´ss to diferent genomes
-2) Split the bed file on individual files. Each bed line to a different bed file
-3) Get MaxEntSplice site score
-4) Get fasta sequence, check that is correct and measure the longest U streech  - Whole alu
-5) Get fasta sequence, check that is correct and measure the longest U streech  - right arm
-6) Get fasta sequence, check that is correct and measure the longest U streech  - left arm
-7) Return a tabular table with all of those results ordered in columns:
+1. Lift over the 3´ss to diferent genomes
+2. Split the bed file on individual files. Each bed line to a different bed file
+3. Get MaxEntSplice site score
+4. Get fasta sequence, check that is correct and measure the longest U streech  - Whole alu
+5. Get fasta sequence, check that is correct and measure the longest U streech  - right arm
+6. Get fasta sequence, check that is correct and measure the longest U streech  - left arm
+7. Return a tabular table with all of those results ordered in columns:
+
         chr     start   end      aluexon    position    strand      distance_to_alu     X3SSS   LongestUTrack   UTrack_Left     UTrack_right
 
 
@@ -71,27 +73,6 @@ chr      start      end     Alu_exon_ID      Alu_class      strand      3´ss_di
 
 
 
-#################################################
-############## Main Script of this research
-#################################################
-##
-##  Script is feed by a bed file with Alu exons 3´ss position. chr      start   end     Alu_exon_ID    Alu_class    strand  3´ss_distance_to_Alu
-##
-##  It will do:
-##                  1) Lift over the 3´ss to diferent genomes
-##                  2) Split the bed file on individual files. Each bed line to a different bed file
-##                  3) Get MaxEntSplice site score
-##                  4) Get fasta sequence, check that is correct and measure the longest U streech  - Whole alu
-##                  5) Get fasta sequence, check that is correct and measure the longest U streech  - right arm
-##                  6) Get fasta sequence, check that is correct and measure the longest U streech  - left arm
-##                  7) Return a tabular table with all of those results
-##
-##  Output file will be named as the input file but end on .tab
-##
-##
-## Usage:
-##          ./lift_and_procces.sh Aluexons_3SS_hg19_Distance.bed OutDIR
-
 
 
 
@@ -168,21 +149,27 @@ Main script [   ](  )
 
 
 
-### 5.  iCLIP data
+### 5.  Allu 3´ss alignment and motif discovery
 
-Main script [   ](  )
+Main script [ Alu_motives.sh ]( scr/bash/Alu_motives.sh )
+
+Grab needded columns columns from Wide.tab table
+
+Feed with a Full Alu Evolutionary table in tab format.
+WebLogo alignemt on Alu evolutionary paths From -60 nt of the 3´s to 15 nt upstream
+Dreme motives on Alu evolutionary paths uspreaam and downstream the 3´s. From -60 nt of the 3´s to 15 nt upstream
+#
+
+Script produces all the plots on Figure 7
 #### Usage:
 `   `
 
 #### Scripts called
 |Link|Description|
 |---|-----------|
-|[ ]( )|      |
-|[  ]( )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-
+|[ get_fasta_species.py ]( scr/python/get_fasta_species.py )|  Get fasta sequence from a specified genome  |
+|[ meme athgorithm ](http://meme-suite.org/ )|   Motif discovery tool HMM based   |
+|[ Tomtom ](http://meme-suite.org/tools/tomtom )|   Search on JASPAR RNA motif database  |
 
 
 ### 6.  Plots
