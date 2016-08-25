@@ -188,10 +188,10 @@ Script produces all the plots on Figure 7
 
 
 ###Source Code Overview
-![module diagram](.DOC/Structure.png "Source Code Overview")
+![module diagram](./DOC/Structure.png "Source Code Overview")
 
 
-## example usage
+### Example usage
 Just run `bash run.sh` to go over all the preograms
 
 
