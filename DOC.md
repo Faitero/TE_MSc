@@ -14,11 +14,11 @@
 
 |Link|Description|
 |---|-----------|
-|[Figure 4](scr/R/Fig_4.R)|                 |
-|[Figure 5](scr/R/Fig_5.R)|                 |
-|[Figure 6](scr/R/Fig_6.R)|                 |
-|[Figure 7](scr/bash/Fig_8.Xlinks.sh)|                 |
-|[Figure 8](scr/bash/Fig_7.motifs.sh)|                 |
+|[Figure 4](scr/R/Fig_4.R)| 3´ss position - 3´ss density - 3´ss heatmap     |
+|[Figure 5](scr/R/Fig_5.R)| Alu evolutionary paths            |
+|[Figure 6](scr/R/Fig_6.R)|       Contigency table          |
+|[Figure 7](scr/bash/Fig_8.Xlinks.sh)|        Alignments  - Motifs        |
+|[Figure 8](scr/bash/Fig_7.motifs.sh)|       Xlinks on Violins          |
 
 
 
