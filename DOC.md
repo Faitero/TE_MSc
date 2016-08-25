@@ -40,7 +40,7 @@ Script is feed by a bed file with Alu exons 3´ss position separated by tab
 
     chr      start      end     Alu_exon_ID      Alu_class      strand      3´ss_distance_to_Alu
 
-
+#
 1. Lift over the 3´ss to diferent genomes
 2. Split the bed file on individual files. Each bed line to a different bed file
 3. Get MaxEntSplice site score
@@ -48,18 +48,19 @@ Script is feed by a bed file with Alu exons 3´ss position separated by tab
 5. Get fasta sequence, check that is correct and measure the longest U streech  - right arm
 6. Get fasta sequence, check that is correct and measure the longest U streech  - left arm
 7. Return a tabular table with all of those results ordered in columns:
+#
 
         chr     start   end      aluexon    position    strand      distance_to_alu     X3SSS   LongestUTrack   UTrack_Left     UTrack_right
 
-
+#
 #### Usage:
 ` bash ./src/bash/lift_and_procces.sh Aluexons_3SS_hg19_Distance.bed OutDIR  `
 
 #### Scripts called
 |Link|Description|
 |---|-----------|
-|[ lift_over_specie.py]( scr/python/lift_over_specie.py)|  lift over bed file to a new bed file specifying the specie conversion. Optional flag to get fasta from those liftovers Seq|
-|[ split_bed_record.py ]( scr/python/split_bed_record.py)|      |
+|[ lift_over_specie.py]( scr/python/lift_over_specie.py)|  Lift over bed file to a new bed file specifying the specie conversion. Optional flag to get fasta from those liftovers Seq|
+|[ split_bed_record.py ]( scr/python/split_bed_record.py)|   Return and split each line in separate file with file name equal to string repesenting the bed position on the genome   |
 |[ flankBEDpositionsStrandSpecific.py ]( scr/python/flankBEDpositionsStrandSpecific.py )|  The script will flank the region in both directions in a new bed file.   |
 |[ get_fasta_species.py ]( scr/python/get_fasta_species.py )|  Get fasta sequence from a specified genome  |
 |[ check_test_sequence.py ]( scr/python/check_test_sequence.py )|  Check that the fasta sequence is apropiate for downstream analysis    |
@@ -172,7 +173,7 @@ Script produces all the plots on Figure 7
 |[ get_fasta_species.py ]( scr/python/get_fasta_species.py )|  Get fasta sequence from a specified genome  |
 |[ meme athgorithm ](http://meme-suite.org/ )|   Motif discovery tool HMM based   |
 |[ Tomtom ](http://meme-suite.org/tools/tomtom )|   Search on JASPAR RNA motif database  |
-
+|[Figure 7](scr/bash/Fig_8.Xlinks.sh)|       3´ss Alignments  - Motifs        |
 
 ### 6.  Plots
   Most of the plots were obtained on R using RStudio IDE
