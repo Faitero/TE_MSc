@@ -15,10 +15,10 @@
 |Link|Description|
 |---|-----------|
 |[Figure 4](scr/R/Fig_4.R)| 3´ss position - 3´ss density - 3´ss heatmap     |
-|[Figure 5](scr/R/Fig_5.R)| Alu evolutionary paths            |
-|[Figure 6](scr/R/Fig_6.R)|       Contigency table          |
-|[Figure 7](scr/bash/Fig_8.Xlinks.sh)|        Alignments  - Motifs        |
-|[Figure 8](scr/bash/Fig_7.motifs.sh)|       Xlinks on Violins          |
+|[Figure 5](scr/R/Fig_5.R)| 3´ss strengthening coupled with U lengthening            |
+|[Figure 6](scr/R/Fig_6.R)|      3´ss and U track Contigency table          |
+|[Figure 7](scr/bash/Fig_8.Xlinks.sh)|       3´ss Alignments  - Motifs        |
+|[Figure 8](scr/bash/Fig_7.motifs.sh)|      RBP Xlinks on Alu evolutionary paths and U track lengths      |
 
 
 
