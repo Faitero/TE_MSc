@@ -13,6 +13,25 @@
 $ dolar
 & and
 
+### 1.  Main Pipeline
+
+All the programes here described are piped by `run.sh` script  [run.sh](run.sh) It start with some data reordering, filtration and  3´ss testing. Select only Alus that are on antisense, sort and get uniques. Those unique were intersected with Alu TE from repeat masker. Then we measure the distance from the 3´ss to the Alu TE end.
+
+Same procccess were taken for 
+
+#### Usage:
+`bash run.sh`
+
+#### Scripts called
+|Link|Description|
+|---|-----------|
+|[ get_start_position_from_bed_corrected.py ](scr/python/get_start_position_from_bed_corrected.py )| get the start position from a bed file. Used to get the 3'ss of alu exonsCheck the best 3SS score in 2nt upstream and 2nt downstream     |
+|[ get_best_3SS.py  ](scr/python/get_best_3SS.py )|   Check the best 3SS score in 2nt upstream and 2nt downstream   |
+|[ add_ID_to_bed.py ](scr/python/add_ID_to_bed.py )|   ADD ID to column 4th. Id is formed by the joining of Bed positions   |
+|[ 3SS_distance_from_alu.py ](scr/python/3SS_distance_from_alu.py )|  The script will get the distance between 3ss and Aluexon start     |
+|[  ](  )|      |
+
+
 
 
 ### 5.  iCLIP data
