@@ -1,18 +1,13 @@
 # Alu Evolutionary Analysis
+---
 
 # Plots
 ## Plots
 ### Plots
 #### Plots
 ##### Plots
-@@ Plots
-@ Plots
 
-
-% porcentaje
-$ dolar
-& and
-
+###
 ### 1.  Main Pipeline
 
 This pipeline will produce all the analysis and the plots from this thesis. Each script contain detailed information on usage and action are comented line by line.
@@ -36,13 +31,13 @@ Posteriously call all bellow scripts.
 |[ get3SS_from_random_alu.py ]( scr/python/get3SS_from_random_alu.py )|   get the 3'SS 20 nt inside alu element    |
 
 
-
+###
 ### 5.  Lift Over and Proccess full table
 
 Main script [ lift_and_procces.sh  ](scr/bash/lift_and_procces.sh )
 
-##  Script is feed by a bed file with Alu exons 3´ss position separated by tab
-chr      start   end     Alu_exon_ID    Alu_class    strand  3´ss_distance_to_Alu
+Script is feed by a bed file with Alu exons 3´ss position separated by tab
+chr      start      end     Alu_exon_ID      Alu_class      strand      3´ss_distance_to_Alu
 
 
 1) Lift over the 3´ss to diferent genomes
@@ -52,7 +47,7 @@ chr      start   end     Alu_exon_ID    Alu_class    strand  3´ss_distance_to_A
 5) Get fasta sequence, check that is correct and measure the longest U streech  - right arm
 6) Get fasta sequence, check that is correct and measure the longest U streech  - left arm
 7) Return a tabular table with all of those results ordered in columns:
-        chr start end  aluexon  position  strand  distance_to_alu  X3SSS  LongestUTrack  UTrack_Left UTrack_right
+        chr     start   end      aluexon    position    strand      distance_to_alu     X3SSS   LongestUTrack   UTrack_Left     UTrack_right
 
 
 #### Usage:
