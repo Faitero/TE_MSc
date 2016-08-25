@@ -12,13 +12,13 @@
 5.  Motives
   Plots
 
-|Script|description|
+|Link|Description|
 |---|-----------|
-|Figure 4 |[Read more words!](scr/R/Fig_4.R)|
-|Figure 5 |[Read more words!](scr/R/Fig_5.R)|
-|Figure 6 |[Read more words!](scr/R/Fig_6.R)|
-|Figure 7 |[Read more words!](scr/bash/Fig_8.Xlinks.sh)|
-|Figure 8 |[Read more words!](scr/bash/Fig_7.motifs.sh)|
+|[Figure 4](scr/R/Fig_4.R)|                 |
+|[Figure 5](scr/R/Fig_5.R)|                 |
+|[Figure 6](scr/R/Fig_6.R)|                 |
+|[Figure 7](scr/bash/Fig_8.Xlinks.sh)|                 |
+|[Figure 8](scr/bash/Fig_7.motifs.sh)|                 |
 
 
 
@@ -27,7 +27,7 @@
 
 |Script|description|
 |---|-----------|
-|Figure 4 |[Read more words!](scr/R/Fig_4.R)|
+|Figure 4 |                 |[Read more words!](scr/R/Fig_4.R)|
 |Figure 5 |[Read more words!](scr/R/Fig_5.R)|
 |Figure 6 |[Read more words!](scr/R/Fig_6.R)|
 |Figure 7 |[Read more words!](scr/bash/Fig_8.Xlinks.sh)|
