@@ -3,17 +3,37 @@
 # Plots
 ## Plots
 ### Plots
+#### Plots
 ##### Plots
-1.  Plots
+@@ Plots
+@ Plots
+
+
+5.  Motives
   Plots
+
 |Script|description|
 |---|-----------|
-|||
 |Figure 4 |[Read more words!](scr/R/Fig_4.R)|
-https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig_5.R
-https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig_6.R
-https://github.com/Faitero/TE_MSc/blob/master/scr/bash/Fig_8.Xlinks.sh
-https://github.com/Faitero/TE_MSc/blob/master/scr/bash/Fig_7.motifs.sh
+|Figure 5 |[Read more words!](scr/R/Fig_5.R)|
+|Figure 6 |[Read more words!](scr/R/Fig_6.R)|
+|Figure 7 |[Read more words!](scr/bash/Fig_8.Xlinks.sh)|
+|Figure 8 |[Read more words!](scr/bash/Fig_7.motifs.sh)|
+
+
+
+6.  Plots
+  Plots
+
+|Script|description|
+|---|-----------|
+|Figure 4 |[Read more words!](scr/R/Fig_4.R)|
+|Figure 5 |[Read more words!](scr/R/Fig_5.R)|
+|Figure 6 |[Read more words!](scr/R/Fig_6.R)|
+|Figure 7 |[Read more words!](scr/bash/Fig_8.Xlinks.sh)|
+|Figure 8 |[Read more words!](scr/bash/Fig_7.motifs.sh)|
+
+
 
 2.  
 
