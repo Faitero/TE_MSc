@@ -188,7 +188,7 @@ Script produces all the plots on Figure 7
 
 
 ###Source Code Overview
-![module diagram](Structure.png "Source Code Overview")
+![module diagram](.Data/Structure.png "Source Code Overview")
 
 
 ## example usage
