@@ -9,7 +9,31 @@
 @ Plots
 
 
-5.  Plots
+% porcentaje
+$ dolar
+& and
+
+
+
+### 6.  iCLIP data
+feed by a URL containing a bedgraph file of RBP xlinks per nucleotide on the human genome,
+and bed file of Alu exon positions
+Return bed file with number of xlinks sites on thta fall on each Alu exon
+
+[get_tables_for%20CLIP.sh](scr/bash/get_tables_for%20CLIP.sh)
+
+|Link|Description|
+|---|-----------|
+|[ xlinks_to_coverage.sh ](scr/bash/xlinks_to_coverage.sh )| Return bed file with number of xlinks sites on thta fall on each Alu exon     |
+|[  ](scr/bash/Fig_8.Xlinks.sh )|      |
+|[  ](  )|      |
+|[  ](  )|      |
+|[  ](  )|      |
+
+
+
+
+### 6.  Plots
   Plots
 
 |Link|Description|
@@ -22,16 +46,8 @@
 
 
 
-6.  Plots
-  Plots
 
-|Script|description|
-|---|-----------|
-|Figure 4 |                 |[Read more words!](scr/R/Fig_4.R)|
-|Figure 5 |[Read more words!](scr/R/Fig_5.R)|
-|Figure 6 |[Read more words!](scr/R/Fig_6.R)|
-|Figure 7 |[Read more words!](scr/bash/Fig_8.Xlinks.sh)|
-|Figure 8 |[Read more words!](scr/bash/Fig_7.motifs.sh)|
+
 
 
 
@@ -48,5 +64,7 @@
 
 
 ## example usage
-See `run.sh` for sample code usage
+Just run `bash run.sh` to go over all the preograms
+
+
 
