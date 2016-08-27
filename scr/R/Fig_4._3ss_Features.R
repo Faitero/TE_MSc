@@ -11,7 +11,7 @@ require(ggplot2)
 
 
 
-alus <- read.table('/media/igor/DATA/UCL/Evolution_Alus/LiftOver_bedPositions/3SS_Alus/All_Aluexons_3SS_C_distance_to_alu.bed', sep="\t")
+alus <- read.table('.Data/All_Aluexons_3SS_C_distance_to_alu.bed', sep="\t")
 
 distance_end_alu <- alus$V5 < 0
 
