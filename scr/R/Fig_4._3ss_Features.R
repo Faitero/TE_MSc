@@ -1,11 +1,58 @@
 
+
+
+##################################
+########    Figure 4A       ######
+##################################
+
+#### histogram Alu exons evolution
+library(ggplot2)
+require(ggplot2)
+
+
+
+alus <- read.table('/media/igor/DATA/UCL/Evolution_Alus/LiftOver_bedPositions/3SS_Alus/All_Aluexons_3SS_C_distance_to_alu.bed', sep="\t")
+
+distance_end_alu <- alus$V5 < 0
+
+
+Fig4A<- qplot(alus$V5, geom="histogram",
+      binwidth = 1,
+      main = "Density of 3SS in alu element",
+      xlab = "Alu element position",
+      fill=I("grey"),
+      col=I("grey")) +
+      #alpha=I(.2)) +
+      theme_bw() +
+      theme(text=element_text(size=12),axis.text=element_text(size=12, face="bold"), axis.title=element_text(size=14, vjust=-.5, face="bold"), plot.title=element_text(vjust=1, size=14, face="bold"))
+     #,
+      #xlim=c(0,320))
+
+Fig4A
+
+## Change theme
+theme(text=element_text(size=12),axis.text=element_text(size=12, face="bold"), axis.title=element_text(size=14, vjust=-.5, face="bold"), plot.title=element_text(vjust=1, size=14, face="bold")),
+
+## Save filgure
+setwd('./Results')
+ggsave("3SSS _distance_withind_Alu.pdf", width=20, height=13)
+
+
+
+
 ##################################
 ########    Figure 4B       ######
 ##################################
 
-queries <- total_furthest
-colnames(queries)
 
+
+## Load rich WIDE table
+setwd('./Results')  ## Curro
+
+whole_final_5sp <- read.table("whole_final_5sp.WIDE.RICH.tab.txt", sep="\t", header=TRUE)
+
+queries <- whole_final_5sp
+colnames(queries)
 
 
 ## Contingency table by the number of regions
@@ -24,7 +71,7 @@ p_meds <- ddply(whole, .(region), summarise, med = median(X3SSS, na.rm = TRUE))
 p_meds
 
 
-a<-  ggplot(whole, aes(factor(region), X3SSS), alpha = 1, colour = "black") + 
+a<-  ggplot(whole, aes(factor(region), X3SSS), alpha = 1, colour = "black") +
   geom_boxplot() + 
   #scale_y_log10() + 
   theme_bw() +
@@ -32,7 +79,7 @@ a<-  ggplot(whole, aes(factor(region), X3SSS), alpha = 1, colour = "black") +
   xlab("") + 
   ylab("length (nt)") +
   theme(text=element_text(size=12),axis.text=element_text(size=12), axis.title=element_text(size=12,face="plain")) +
-  scale_x_discrete(limits=c("hg19", "panTro4", "nomLeu1", "rheMac3", "calJac3"))
+  scale_x_discrete(limits=c("hg19", "panTro4", "nomLeu1", "rheMac3", "calJac3"))                                                # Stablish legend and ortder of genomes
 
 a 
 
@@ -40,7 +87,7 @@ a
 dodge <- position_dodge(width = 0.9)
 
 ## Violin plot thta represent the 3´ss score on each specie 
-fig1B<- ggplot(whole, aes(factor(region), X3SSS), alpha = 1) + 
+fig4B<- ggplot(whole, aes(factor(region), X3SSS), alpha = 1) +
   geom_violin( position = dodge, alpha = 1, , width = 0.9) + 
   geom_boxplot( position = dodge, alpha = 1, outlier.shape = NA, width = 0.3) + 
   
@@ -55,7 +102,7 @@ fig1B<- ggplot(whole, aes(factor(region), X3SSS), alpha = 1) +
   geom_text(data = count_table, aes(x = region, y = 18 , label = freq), size = 5, vjust = 0, position = dodge, angle=45) +
   scale_x_discrete(limits=c("calJac3", "rheMac3", "nomLeu1","panTro4" ,"hg19"), labels=c("hg19"="Human", "panTro4"="Chimp", "nomLeu1"="Gibbon", "rheMac3"="Rhesus", "calJac3"="Marmoset"))
 
-fig1B
+fig4B
 
 setwd('./Results')
 ggsave("3SSS Species.pdf", width=20, height=13)
@@ -119,7 +166,7 @@ experiment <- "Clustered_by_Furthest_specie_"
 library( pheatmap)
 pdf("YellowBlue2_with_PDF2.pdf", width=40, height=26)
 tiff("YellowBlue2.tiff" , width = 1000, height = 1000, units = "px")
-hm_3ss_by_U<-  heatmap.2(mat_data_3ss,
+Fig4C<-  heatmap.2(mat_data_3ss,
                          #cellnote = mat_data,  # same data set for cell labels
                          main = "3SS clustered by furthest and U track lenght", # heat map title
                          #notecol="black",      # change font color of cell labels to black
@@ -139,7 +186,7 @@ hm_3ss_by_U<-  heatmap.2(mat_data_3ss,
                          Rowv=NA,
                          Colv=NA)      # turn off column clustering
 dev.off()
-ggsave("YellowBlue2_with_ggsave.pdf", width=20, height=13)
+ggsave("Fig4C_Heatmap.pdf", width=20, height=13)
 
 
 
