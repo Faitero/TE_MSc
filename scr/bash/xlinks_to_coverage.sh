@@ -43,7 +43,7 @@ gunzip "$CLIP_name".bed.gz
 python '/home/igor/Dropbox (UCL-MN Team)/AptanaWorkSpaceIgor/Converters/BEDgraph2BED.py' "$CLIP_name".bed "$CLIP_name"_BED.bed
 rm "$CLIP_name".bed
 
-## Split counts and positive and negative lines
+## Split counts and positive and negative lines Script accept B or G files
 python '/home/igor/Dropbox (UCL-MN Team)/AptanaWorkSpaceIgor/Converters/BED2BED_no_counts_G&B.py' "$CLIP_name"_BED.bed "$CLIP_name"_BED_NC.bed
 rm "$CLIP_name"_BED.bed
 
