@@ -182,7 +182,7 @@ Script produces all the plots on Figure 7
 |---|-----------|
 |[Figure 4](scr/R/Fig_4.R)| 3´ss position - 3´ss density - 3´ss heatmap     |
 |[Figure 5](scr/R/Fig_5.R)| 3´ss strengthening coupled with U lengthening            |
-|[Figure 6](scr/R/Fig_6.R)|      3´ss and U track Contigency table          |
+|[Figure 6](scr/R/Fig_6_Contingency%20table.R)|      3´ss and U track Contigency table          |
 |[Figure 7](scr/bash/Fig_8.Xlinks.sh)|       3´ss Alignments  - Motifs        |
 |[Figure 8](scr/bash/Fig_7.motifs.sh)|      RBP Xlinks on Alu evolutionary paths and U track lengths      |
 
@@ -196,3 +196,4 @@ Just run `bash run.sh` to go over all the preograms
 
 
 
+https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig_6_Contingency%20table.R
