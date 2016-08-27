@@ -184,6 +184,7 @@ cat total_by_Evolution_PTB_G.bed | grep 'moderate' |  awk -v N=7 '{ sum += $N } 
 cat total_by_Evolution_PTB_G.bed | grep 'low' |  awk -v N=7 '{ sum += $N } END { if (NR > 0) print sum / NR }'
 cat total_by_Evolution_PTB_G.bed | grep 'lowest' |  awk -v N=7 '{ sum += $N } END { if (NR > 0) print sum / NR }'
 
+
 ##############################
 #### Merge tables   ##########
 ##############################
