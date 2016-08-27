@@ -1,145 +1,187 @@
 
-##################################
-########    Figure 4B       ######
-##################################
-
-queries <- total_furthest
-colnames(queries)
+#################################################
+####### histogram of factor frecuencies
+#################################################
 
 
 
-## Contingency table by the number of regions
-#whole <- as.factor(whole$region)
-#class(whole)
-count_table <- data.frame(table(whole$region))
-colnames(count_table) <- c("region", "freq")
-count_table
 
-### line inside box plot could be the mean, mode or median 
-#p_meds <- ddply(whole, .(region), summarise, med = mean(X3SSS, na.rm = TRUE))
-#Mode
-#p_meds <- ddply(whole, .(region), summarise, med = getmode(X3SSS, na.rm = TRUE))
-#Median
-p_meds <- ddply(whole, .(region), summarise, med = median(X3SSS, na.rm = TRUE))
-p_meds
+## Load rich WIDE table
+setwd('./Results')  ## Curro
 
-
-a<-  ggplot(whole, aes(factor(region), X3SSS), alpha = 1, colour = "black") + 
-  geom_boxplot() + 
-  #scale_y_log10() + 
-  theme_bw() +
-  ggtitle("median quartile 25%, 50%, 75%") + 
-  xlab("") + 
-  ylab("length (nt)") +
-  theme(text=element_text(size=12),axis.text=element_text(size=12), axis.title=element_text(size=12,face="plain")) +
-  scale_x_discrete(limits=c("hg19", "panTro4", "nomLeu1", "rheMac3", "calJac3"))
-
-a 
-
-## Overlap several ggplots in one with region as factor
-dodge <- position_dodge(width = 0.9)
-
-## Violin plot thta represent the 3´ss score on each specie 
-fig1B<- ggplot(whole, aes(factor(region), X3SSS), alpha = 1) + 
-  geom_violin( position = dodge, alpha = 1, , width = 0.9) + 
-  geom_boxplot( position = dodge, alpha = 1, outlier.shape = NA, width = 0.3) + 
-  
-  theme_bw() +
-  scale_y_continuous(limits = c(-40, 20)) +
-  #scale_y_log10() +
-  ggtitle("3SS score Aluexons") + 
-  xlab("") + 
-  ylab("3SS score") +
-  theme(text=element_text(size=12),axis.text=element_text(size=12, face="bold"), axis.title=element_text(size=14, vjust=-.5, face="bold"), plot.title=element_text(vjust=1, size=14, face="bold")) +
-  geom_text(data = p_meds, aes(x = region, y = med, label = format(med, digits=2)), size = 4, vjust = -1.5, position = dodge) +
-  geom_text(data = count_table, aes(x = region, y = 18 , label = freq), size = 5, vjust = 0, position = dodge, angle=45) +
-  scale_x_discrete(limits=c("calJac3", "rheMac3", "nomLeu1","panTro4" ,"hg19"), labels=c("hg19"="Human", "panTro4"="Chimp", "nomLeu1"="Gibbon", "rheMac3"="Rhesus", "calJac3"="Marmoset"))
-
-fig1B
-
-setwd('./Results')
-ggsave("3SSS Species.pdf", width=20, height=13)
+whole_final_5sp <- read.table("whole_final_5sp.WIDE.RICH.tab.txt", sep="\t", header=TRUE)
 
 
 
-#################################
-#### Figure 4C   ### Heat maps Furthest clustered
-#################################
+## Factorize Substitutions
+whole_final_5sp$alu_substitutions_hg19_t <- as.factor(whole_final_5sp$alu_substitutions_hg19_t)
+whole_final_5sp$alu_substitutions_hg19_t <- factor(whole_final_5sp$alu_substitutions_hg19_t, levels= c("highest", "high", "moderate", "low" ,"lowest", "-1"))
+levels(whole_final_5sp$alu_substitutions_hg19_t)
 
-total_furthest <- queries
-unique(total_furthest$furthest)
-#("hg19"="1", "panTro4"="2", "panPan1"="3", "nomLeu1"="4", "papHam1"="5", "rheMac3"="6", "calJac3"="7")  
-col2 <- as.integer(revalue(as.character(total_furthest$furthest), c("hg19"="1", "panTro4"="2", "nomLeu1"="3", "rheMac3"="4", "calJac3"="5")))
-furthest_clustered <- cbind(total_furthest, col2)
-
-### Order by furthest
-# and WU reversed
-furthest_clustered <- furthest_clustered[order(furthest_clustered$col2, -furthest_clustered$WU_hg19),]
-# and 3SS reversed hight to less
-furthest_clustered <- furthest_clustered[order(furthest_clustered$col2, -furthest_clustered$"X3SSS_hg19"),]
-
-furthest_clustered$col2
-furthest_clustered$furthest
-
-furthest_clustered  <- subset(furthest_clustered, furthest_clustered$"X3SSS_hg19">3)     ### Use only those that the 3ss is higher than 3
-# 3SS
-#furthest_clustered_3 <- data.frame(furthest_clustered$"X3SSS_hg19", furthest_clustered$WU_hg19, furthest_clustered[,seq(20, ncol(furthest_clustered), 11)])
-furthest_clustered_3 <- data.frame( furthest_clustered[,seq(20, ncol(furthest_clustered), 11)])
-head(furthest_clustered_3)
-matdata_furthest_clustered_3 <- data.matrix(furthest_clustered_3)
-head(matdata_furthest_clustered_3)
-# PolyU
-#Divergence_clustered_U <- data.frame(Divergence_clustered$aluexon, Divergence_clustered$alu_substitutions_hg19_t, Divergence_clustered[,seq(21, ncol(total_heat), 11)])
-#furthest_clustered_U <- data.frame(furthest_clustered$"X3SSS_hg19", furthest_clustered$WU_hg19, furthest_clustered[,seq(21, ncol(furthest_clustered), 11)])
-furthest_clustered_U <- data.frame(furthest_clustered[,seq(21, ncol(furthest_clustered), 11)])
-head(furthest_clustered_U)
-matdata_furthest_clustered_U <- data.matrix(furthest_clustered_U)
-#matdata_furthest_clustered_U <- data.matrix(furthest_clustered_U[3:13])
-head(matdata_furthest_clustered_U)
+## Aplly the same subset that in the rest of the study
+whole_final_5sp <- subset(whole_final_5sp, whole_final_5sp$furthest == "calJac3" & whole_final_5sp$X3SSS_hg19 > 3)
+whole_final_5sp <- subset(whole_final_5sp,  whole_final_5sp$X3SSS_hg19 > 3)
 
 
 
-my_palette_3 <- colorRampPalette(c("#FFF8B4", "#FFF88A", "#FFF662",  "#4A75D6", "#4202B2"))(n = 499)
 
-# my_palette_3 <- colorRampPalette(c("#FFF8B4", "#FFF662",  "#4A75D6"))(n = 499)
-col_breaks_3 = c(seq(-15, -10,length=100), # for Yeloow
-                 seq(-9.90,-2,length=100), # for light YElllow
-                 seq(-1.90,3,length=100), # for Grey
-                 seq(3.10,10,length=100), # for Bluis
-                 seq(10.10,15,length=100)) # for Dark Blue
+## Diferent contingency tables created and studied one by one
+par(mfrow=c(3,1))
 
+evolving <- subset(whole_final_5sp, whole_final_5sp$Exon_Originated == "Evolving Exon")
+evolving <- evolving$alu_element_hg19_t
+evolving <- evolving$dist
+evolving <- evolving$UCSCtype
+evolving <- evolving$alu_substitutions_hg19_t
+evolving <- evolving$chr_hg19_t
+evolving <- evolving$WU_hg19
+length(evolving)
+barplot(table(evolving), main = "Evolving Alu-exons", las=2)
 
+stable <- subset(whole_final_5sp, whole_final_5sp$Exon_Originated == "Constant Exon")
+stable <- stable$alu_element_hg19_t
+stable <- stable$dist
+stable <- stable$UCSCtype
+stable <- stable$alu_substitutions_hg19_t
+stable <- stable$chr_hg19_t
+stable <- stable$WU_hg19
+length(stable)
+barplot(table(stable), main = "Stable Alu-exons", las=2)
 
-mat_data_WU <- matdata_furthest_clustered_U
-mat_data_3ss <- matdata_furthest_clustered_3 
-experiment <- "Clustered_by_Furthest_specie_"
-
-
-
-library( pheatmap)
-pdf("YellowBlue2_with_PDF2.pdf", width=40, height=26)
-tiff("YellowBlue2.tiff" , width = 1000, height = 1000, units = "px")
-hm_3ss_by_U<-  heatmap.2(mat_data_3ss,
-                         #cellnote = mat_data,  # same data set for cell labels
-                         main = "3SS clustered by furthest and U track lenght", # heat map title
-                         #notecol="black",      # change font color of cell labels to black
-                         key = TRUE,
-                         density.info="density",  #,"density","none"),
-                         densadj = 0.5,
-                         #density.info="none",  # turns off density plot inside color legend
-                         trace="none",         # turns off trace lines inside the heat map
-                         margins =c(7, 7),     # widens margins around plot
-                         denscol="black",
-                         keysize=1.5, 
-                         col=my_palette_3,       # use on color palette defined earlier
-                         breaks=col_breaks_3,    # enable color transition at specified limits
-                         #dendrogram=NULL,     # only draw a row dendrogram
-                         RowSideColors=as.character(as.numeric(furthest_clustered$col2)),
-                         #colRow= as.character(as.numeric(furthest_clustered$col2)),        ## color categorize rows
-                         Rowv=NA,
-                         Colv=NA)      # turn off column clustering
-dev.off()
-ggsave("YellowBlue2_with_ggsave.pdf", width=20, height=13)
+emerging <- subset(whole_final_5sp, whole_final_5sp$Exon_Originated == "Emerging Exon")
+emerging <- emerging$alu_element_hg19_t
+emerging <- emerging$dist
+emerging <- emerging$UCSCtype
+emerging <- emerging$alu_substitutions_hg19_t
+emerging <- emerging$chr_hg19_t
+emerging <- emerging$WU_hg19
+length(emerging)
+barplot(table(emerging), main = "Emerging Alu-exons", las=2)
 
 
+
+
+
+
+
+#################################################
+####### Contingency tables
+#################################################
+
+library(ca)
+library(vcd)
+library(gmodels)
+
+
+######### Categorical data over U track
+
+
+## Select only U track longet that 5
+whole_final_5sp <- subset(whole_final_5sp, whole_final_5sp$WU_hg19 >= 5)
+
+
+## Exon originated
+#count_table <- data.frame(table(whole_final_5sp$WU_hg19, whole_final_5sp$Exon_Originated))
+count_table <- table(whole_final_5sp$WU_hg19, whole_final_5sp$Exon_Originated)
+count_table <- structable(whole_final_5sp$Exon_Originated ~ whole_final_5sp$WU_hg19)
+
+
+## Alu family
+count_table <- table(whole_final_5sp$WU_hg19, whole_final_5sp$alu_element_hg19_t)
+count_table <- structable(whole_final_5sp$alu_element_hg19_t ~ whole_final_5sp$WU_hg19)
+
+## Substitution
+whole_final_5sp <- subset(whole_final_5sp, whole_final_5sp$alu_substitutions_hg19_t !=-1 & whole_final_5sp$WU_hg19 >= 4)
+whole_final_5sp$alu_substitutions_hg19_t <- factor(whole_final_5sp$alu_substitutions_hg19_t, levels= c("highest", "high", "moderate", "low" ,"lowest"))
+count_table <- structable(whole_final_5sp$alu_substitutions_hg19_t ~ whole_final_5sp$WU_hg19)
+
+## Furthest
+count_table <- table(whole_final_5sp$WU_hg19, whole_final_5sp$furthest)
+
+
+#### Triple contingency table
+count_table <- xtabs(~whole_final_5sp$alu_substitutions_hg19_t+whole_final_5sp$WU_hg19+whole_final_5sp$Exon_Originated, data=whole_final_5sp)
+
+
+
+## Some summary statistics
+#ftable(count_table)
+print(count_table)
+summary(count_table)
+
+## Factor asociation
+assocstats(count_table)
+
+## Table of proportions
+prop.table(count_table, 1)
+
+## Marginal Pearson and Chi
+margin.table(count_table, 1)
+
+## Plot contingency table
+mosaic(count_table, shade = TRUE, legend = TRUE , rot_labels=c(0,0,0,0))   #  main=      las=
+assoc(count_table, shade = TRUE, legend=TRUE, rot_labels=c(0,90,0,0))
+
+
+## CrossTable
+CrossTable(whole_final_5sp$WU_hg19, whole_final_5sp$Exon_Originated)
+
+## Chi test
+chisq.test(count_table)
+
+
+
+
+######### Categorical data over 3´ss
+
+
+## Now with the 3'ss in human
+#whole_final_5sp$cat_X3SSS_hg19 <- cut(whole_final_5sp$X3SSS_hg19, seq(-40,15,1))
+#whole_final_5sp$cat_X3SSS_hg19 <- cut(whole_final_5sp$X3SSS_hg19, c(-40,-30,-20,-10,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15))
+
+######### Categorical data over U track
+whole_final_5sp$cat_X3SSS_hg19 <- cut(whole_final_5sp$X3SSS_hg19, c(3,4,5,6,7,8,9,10,11,12,13,14,15))
+
+
+## Exon originated
+#count_table <- data.frame(table(whole_final_5sp$WU_hg19, whole_final_5sp$Exon_Originated))
+count_table <- table(whole_final_5sp$WU_hg19, whole_final_5sp$Exon_Originated)
+count_table <- structable(whole_final_5sp$Exon_Originated ~ whole_final_5sp$cat_X3SSS_hg19)
+
+
+## Alu family
+count_table <- table(whole_final_5sp$WU_hg19, whole_final_5sp$alu_element_hg19_t)
+count_table <- structable(whole_final_5sp$alu_element_hg19_t ~ whole_final_5sp$WU_hg19)
+
+## Substitution
+whole_final_5sp <- subset(whole_final_5sp, whole_final_5sp$alu_substitutions_hg19_t !=-1 & whole_final_5sp$WU_hg19 >= 4)
+whole_final_5sp$alu_substitutions_hg19_t <- factor(whole_final_5sp$alu_substitutions_hg19_t, levels= c("highest", "high", "moderate", "low" ,"lowest"))
+count_table <- structable(whole_final_5sp$alu_substitutions_hg19_t ~ whole_final_5sp$cat_X3SSS_hg19)
+
+## Furthest
+count_table <- table(whole_final_5sp$WU_hg19, whole_final_5sp$furthest)
+
+
+#### Triple contingency table
+count_table <- xtabs(~whole_final_5sp$alu_substitutions_hg19_t+whole_final_5sp$cat_X3SSS_hg19+whole_final_5sp$Exon_Originated, data=whole_final_5sp)
+
+
+## Some summary stats
+#ftable(count_table)
+print(count_table)
+summary(count_table)
+
+
+## Create asociations
+assocstats(count_table)
+
+## Proportions table
+prop.table(count_table, 1)
+
+## Pearson porb. over residuals
+margin.table(count_table, 1)
+
+## Plot Contingeny results
+mosaic(count_table, shade = TRUE, legend = TRUE , rot_labels=c(0,0,0,0))   #  main=      las=
+assoc(count_table, shade = TRUE, legend=TRUE, rot_labels=c(0,90,0,0))
 
