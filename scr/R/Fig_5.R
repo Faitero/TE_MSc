@@ -1,17 +1,19 @@
 
+## In this scipt I have created two funcions
+#  1. WIDE to LONG allow to extract any column from WIDE table, factorise the column/elemnt studied and return a LONG table ready to plot
+#  2. Function that is feed with dataframe in LONG format of AluID 3SSS UTRack_whole UtrackLeft UtraclRight
+# Call Funcion passing the data_frame to plot
+#
+# Usage:
+#         plot_custom_bar_plots(final_data_frame, experiment_name)
 
 
+setwd('/Results' )
 
-
-
-
-
-
-
-setwd('/media/igor/DATA/UCL/Evolution_Alus/New3SS/Output_R' )
-
+## Set name of the experiment to label and save the plots
 experiment_name <- "Exons Marmoset Originated"
 
+## Call Funcion passing the data_frame to plot
 plot_custom_bar_plots(final_data_frame, experiment_name)
 
 #####################################   Functions   #############################################################
@@ -57,7 +59,7 @@ wide_to_long <- function(data_frame, new_column){
 ## Function to plot 3SSS WU U1 and U2 at the same time ## Now ussing median  
 plot_custom_bar_plots <- function(final_data_frame, experiment_name) {
   
-  #### 3SSS##
+  #### 3SSS## Plots
   getmode <- function(v) {
     uniqv <- unique(v)
     uniqv[which.max(tabulate(match(v, uniqv)))]
@@ -87,7 +89,7 @@ plot_custom_bar_plots <- function(final_data_frame, experiment_name) {
   count_table
   
   
-  library(plyr)
+
   ### quartile <- median.quartile(clusters$length)     Nejc what its clusters
   
   dodge <- position_dodge(width = 0.9)
