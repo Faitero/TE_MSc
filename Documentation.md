@@ -136,7 +136,7 @@ Finally R script [ Fig.8:Xlinks.R ]( scr/R/Fig.8:Xlinks.R ) filter the data and 
 |Link|Description|
 |---|-----------|
 |[ ** xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh )|   Function to assign xlinks to BED file   |
-|[ get_tables_for_CLIP.sh  ]( scr/bash/get_tables_for%20CLIP.sh )|   Pipeline of iCLIP    |
+|[ ** get_tables_for_CLIP.sh  ]( scr/bash/get_tables_for%20CLIP.sh )|   Pipeline of iCLIP    |
 |[ Fig.8:Xlinks.R ]( scr/R/Fig.8:Xlinks.R )|   Plot iCLIP data   |
 
 ### 8.  Plots
