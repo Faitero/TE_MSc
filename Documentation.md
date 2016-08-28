@@ -145,9 +145,3 @@ Main script [ xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh )
 
 
 
-
-
-https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig_6_Contingency%20table.R
-
-https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig_4._3ss_Features.R
-https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig.8:Xlinks.R
