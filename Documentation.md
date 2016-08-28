@@ -141,7 +141,7 @@ Main script [ xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh )
 
 
 ###Source Code Overview
-![module diagram](./DOC/Structure.png "Source Code Overview")
+![module diagram](Data/Structure.png "Source Code Overview")
 
 
 
