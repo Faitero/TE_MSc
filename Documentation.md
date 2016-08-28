@@ -1,12 +1,6 @@
 # Alu Evolutionary Analysis
 
 
-# Plots
-## Plots
-### Plots
-#### Plots
-##### Plots
-
 ###
 ### 1.  Main Pipeline
 
@@ -32,7 +26,7 @@ Posteriously it calls all bellow scripts until plots.
 
 
 ###
-### 5.  Lift Over and Proccess full table
+### 2.  Lift Over and Proccess full table
 
 Main script [ lift_and_procces.sh  ](scr/bash/lift_and_procces.sh )
 
@@ -68,22 +62,14 @@ Script is feed by a bed file with Alu exons 3´ss position separated by tab
 |[ get_aluexon_from_distance_from_alu2.py ]( scr/python/get_aluexon_from_distance_from_alu2.py)|  The script will get the distance between 3ss and Alu start    |
 
 
+### 3.  3´ss features
 
+Main script [ Fig_4._3ss_Features.R  ]( /scr/R/Fig_4._3ss_Features.R )
 
+#### Usage:
+` Rscript ./scr/R/Fig_4._3ss_Features.R `
 
-
-
-
-
-
-
-
-
-
-
-
-
-### 5.  iCLIP data
+### 4.  3´ss coupled with U track lenght
 
 Main script [   ](  )
 #### Usage:
@@ -92,67 +78,20 @@ Main script [   ](  )
 #### Scripts called
 |Link|Description|
 |---|-----------|
-|[ ]( )|      |
+|[ Fig_5.R ]( scr/R/Fig_5.R)|   Funcion to plot at the same time 3´ss UTrack on the whole Alu, right and left arms   |
 |[  ]( )|      |
 |[  ](  )|      |
 |[  ](  )|      |
 |[  ](  )|      |
 
 
+### 5.  Contingency tables
 
-### 5.  iCLIP data
-
-Main script [   ](  )
+Main script [ Fig_6_Contingency table.R  ]( scr/R/Fig_6_Contingency%20table.R )
 #### Usage:
-`   `
+` Rscript ./src/R/Fig_6_Contingency%20table.R  `
 
-#### Scripts called
-|Link|Description|
-|---|-----------|
-|[ ]( )|      |
-|[  ]( )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-
-
-### 5.  iCLIP data
-
-Main script [   ](  )
-#### Usage:
-`   `
-
-#### Scripts called
-|Link|Description|
-|---|-----------|
-|[ ]( )|      |
-|[  ]( )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-
-
-
-### 5.  3´ss score versus U track Lenght Contingency tables
-
-Studied based on number of substitutions
-
-Main script [   ](  )
-#### Usage:
-`   `
-
-#### Scripts called
-|Link|Description|
-|---|-----------|
-|[ ]( )|      |
-|[  ]( )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-
-
-
-### 5.  Allu 3´ss alignment and motif discovery
+### 6.  Allu 3´ss alignment and motif discovery
 
 Main script [ Alu_motives.sh ]( scr/bash/Alu_motives.sh )
 
@@ -165,7 +104,7 @@ Dreme motives on Alu evolutionary paths uspreaam and downstream the 3´s. From -
 
 Script produces all the plots on Figure 7
 #### Usage:
-`   `
+` bash  ./scr/bash/Alu_motives.sh `
 
 #### Scripts called
 |Link|Description|
@@ -175,25 +114,40 @@ Script produces all the plots on Figure 7
 |[ Tomtom ](http://meme-suite.org/tools/tomtom )|   Search on JASPAR RNA motif database  |
 |[Figure 7](scr/bash/Fig_8.Xlinks.sh)|       3´ss Alignments  - Motifs        |
 
-### 6.  Plots
+
+### 7.  iCLIP RBP binding data
+
+Main script [ xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh )
+#### Usage:
+` bash  ./scr/bash/xlinks_to_coverage.sh  `
+
+#### Scripts called
+|Link|Description|
+|---|-----------|
+|[ xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh )|   Function to assign xlinks to BED file   |
+|[ get_tables_for_CLIP.sh  ]( scr/bash/get_tables_for%20CLIP.sh )|      |
+|[ Fig.8:Xlinks.R ]( scr/R/Fig.8:Xlinks.R )|   Plot iCLIP data   |
+
+### 8.  Plots
   Most of the plots were obtained on R using RStudio IDE
 
 |Link|Description|
 |---|-----------|
-|[Figure 4](scr/R/Fig_4.R)| 3´ss position - 3´ss density - 3´ss heatmap     |
+|[Fig_4._3ss_Features.R](scr/R/Fig_4._3ss_Features.R)| 3´ss position - 3´ss density - 3´ss heatmap     |
 |[Figure 5](scr/R/Fig_5.R)| 3´ss strengthening coupled with U lengthening            |
-|[Figure 6](scr/R/Fig_6_Contingency%20table.R)|      3´ss and U track Contigency table          |
-|[Figure 7](scr/bash/Fig_8.Xlinks.sh)|       3´ss Alignments  - Motifs        |
-|[Figure 8](scr/bash/Fig_7.motifs.sh)|      RBP Xlinks on Alu evolutionary paths and U track lengths      |
+|[Fig_6_Contingency%20table.R](scr/R/Fig_6_Contingency%20table.R)|      3´ss and U track Contigency table          |
+|[Fig_7.motifs.sh](scr/bash/Fig_7.motifs.sh)|       3´ss Alignments  - Motifs        |
+|[Fig.8:Xlinks.R](scr/bash/Fig.8:Xlinks.R)|      RBP Xlinks on Alu evolutionary paths and U track lengths      |
 
 
 ###Source Code Overview
 ![module diagram](./DOC/Structure.png "Source Code Overview")
 
 
-### Example usage
-Just run `bash run.sh` to go over all the preograms
 
 
 
 https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig_6_Contingency%20table.R
+
+https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig_4._3ss_Features.R
+https://github.com/Faitero/TE_MSc/blob/master/scr/R/Fig.8:Xlinks.R
