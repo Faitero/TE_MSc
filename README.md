@@ -27,12 +27,10 @@ Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) RStudio Sa
 
 The folowing programs must be on the path to be called by the pipeline:
 
-1.Bedtools
+1.Bedtools [   ]( )
 
 2.[ MaxEntScan  ]( https://github.com/Congenica/maxentscan )
 NOTE!! splicemodels folder  is needed to run the program. Refer to [ MaxEntScan  ]( https://github.com/Congenica/maxentscan ) for instalation and usage.
-
-
 
 
 3.R Library must be availables for R
@@ -56,11 +54,14 @@ NOTE!! splicemodels folder  is needed to run the program. Refer to [ MaxEntScan 
     library(Bio) import SeqIO
 
 
-4.meme_4.10.0
 
-5.Weblogo3.0
+4.[ meme_4.10.0 ](http://meme-suite.org/ )   Motif discovery tool HMM based. Check intalation manual.
 
-6.Access to iCLIP data at iCONT web server
+5.[ Tomtom ](http://meme-suite.org/tools/tomtom )  Search on JASPAR RNA motif database.
+
+6.[ Weblogo3.0  ](http://weblogo.threeplusone.com/manual.html ) sequence alignment tool. Check Manual and Readme on instalation and dependencies needed.
+
+7.Access to iCLIP data at  [ iCOUNT  ]( http://icount.biolab.si/) web server
 
 
 
