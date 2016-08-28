@@ -52,6 +52,8 @@ NOTE!! splicemodels folder  is needed to run the program. Refer to [ MaxEntScan 
     library(ColorPalette)
     library(scales)
     library(GGally)
+    library(sys)
+    library(Bio) import SeqIO
 
 
 4.meme_4.10.0

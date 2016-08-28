@@ -62,7 +62,7 @@ Script is feed by a bed file with Alu exons 3´ss position separated by tab
 |[ ** get_fasta_species.py ]( scr/python/get_fasta_species.py )|  Get fasta sequence from a specified genome  |
 |[ check_test_sequence.py ]( scr/python/check_test_sequence.py )|  Check that the fasta sequence is apropiate for downstream analysis    |
 |[ ** findLongestStrech.py ]( scr/python/findLongestStrech.py)|  Find the longest strech of a given letter in a string (case insensitive)    |
-|[ get_aluexon_from_distance_from_alu2.py ]( scr/python/get_aluexon_from_distance_from_alu2.py)|  The script will get the distance between 3ss and Alu start    |
+|[ ** get_aluexon_from_distance_from_alu2.py ]( scr/python/get_aluexon_from_distance_from_alu2.py)|  The script will get the distance between 3ss and Alu start. Then it will create a sintetic Alu element covering all the predicted Alu seq (at least 320 nt).    |
 
 
 ### 3.  3´ss features
