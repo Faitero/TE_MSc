@@ -29,7 +29,11 @@ The folowing programs must be on the path to be called by the pipeline:
 
 1.Bedtools
 
-2.MaxEntScan
+2.[ MaxEntScan  ]( https://github.com/Congenica/maxentscan )
+NOTE!! splicemodels folder  is needed to run the program. Refer to [ MaxEntScan  ]( https://github.com/Congenica/maxentscan ) for instalation and usage.
+
+
+
 
 3.R Library must be availables for R
 
