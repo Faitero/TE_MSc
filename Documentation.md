@@ -98,8 +98,9 @@ Main script [ Alu_motives.sh ]( scr/bash/Alu_motives.sh )
 Grab needded columns columns from Wide.tab table
 
 Feed with a Full Alu Evolutionary table in tab format.
-WebLogo alignemt on Alu evolutionary paths From -60 nt of the 3´s to 15 nt upstream
-Dreme motives on Alu evolutionary paths uspreaam and downstream the 3´s. From -60 nt of the 3´s to 15 nt upstream
+WebLogo alignemt on Alu evolutionary paths From -60 nt of the 3´s to 15 nt upstream.
+
+Dreme motives on Alu evolutionary paths uspreaam and downstream the 3´s. From -45 nt of the 3´s to 45 nt upstream
 #
 
 Script produces all the plots on Figure 7
@@ -117,7 +118,14 @@ Script produces all the plots on Figure 7
 
 ### 7.  iCLIP RBP binding data
 
-Main script [ xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh )
+Main script [ get_tables_for_CLIP.sh  ]( scr/bash/get_tables_for%20CLIP.sh )
+
+Script download Xlink sites from iCount iCLIP web server.
+
+Use function [ xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh ) to asign Xlink count to each Alu exon on a bed file.
+
+Finally R script [ Fig.8:Xlinks.R ]( scr/R/Fig.8:Xlinks.R ) filter the data and plot Violins densities of each class.
+
 #### Usage:
 ` bash  ./scr/bash/xlinks_to_coverage.sh  `
 
