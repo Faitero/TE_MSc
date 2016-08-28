@@ -4,13 +4,16 @@
 ###
 ### 1.  Main Pipeline
 
-This pipeline will produce all the analysis and the plots from this thesis. Each script contain detailed information on usage and action are comented line by line.
+This pipeline will produce all the analysis and the plots from this thesis. Each script contain detailed information on usage and actions are comented line by line.
+@@ NOTE -- harsh coding or vital script are noted with **
 
-All the programes here described are piped by `run.sh` script  [run.sh](run.sh) It start with some data reordering, filtration and  3´ss testing. Select only Alus that are on antisense, sort and get uniques. Those unique were intersected with Alu TE from repeat masker. Then we measure the distance from the 3´ss to the Alu TE end.
+All the programes here described are piped by `bash run.sh` script  [ ** run.sh](run.sh) It start with some data reordering, filtration and  3´ss testing. Select only Alus that are on antisense, sort and get uniques. Those unique were intersected with Alu TE from repeat masker. Then we measure the distance from the 3´ss to the Alu TE end.
 
-Same procccess were taken for random Alus.
+Same proccess were taken for random Alus.
 
 Posteriously it calls all bellow scripts until plots.
+
+
 
 #### Usage:
 `bash run.sh`
@@ -19,16 +22,16 @@ Posteriously it calls all bellow scripts until plots.
 |Link|Description|
 |---|-----------|
 |[ get_start_position_from_bed_corrected.py ](scr/python/get_start_position_from_bed_corrected.py )| get the start position from a bed file. Used to get the 3'ss of alu exonsCheck the best 3SS score in 2nt upstream and 2nt downstream     |
-|[ get_best_3SS.py  ](scr/python/get_best_3SS.py )|   Check the best 3SS score in 2nt upstream and 2nt downstream   |
+|[ ** get_best_3SS.py  ](scr/python/get_best_3SS.py )|   Check the best 3SS score in 2nt upstream and 2nt downstream   |
 |[ add_ID_to_bed.py ](scr/python/add_ID_to_bed.py )|   ADD ID to column 4th. Id is formed by the joining of Bed positions   |
-|[ 3SS_distance_from_alu.py ](scr/python/3SS_distance_from_alu.py )|  The script will get the distance between 3ss and Aluexon start     |
+|[ ** 3SS_distance_from_alu.py ](scr/python/3SS_distance_from_alu.py )|  The script will get the distance between 3ss and Aluexon start     |
 |[ get3SS_from_random_alu.py ]( scr/python/get3SS_from_random_alu.py )|   get the 3'SS 20 nt inside alu element    |
 
 
 ###
 ### 2.  Lift Over and Proccess full table
 
-Main script [ lift_and_procces.sh  ](scr/bash/lift_and_procces.sh )
+Main script [ ** lift_and_procces.sh  ](scr/bash/lift_and_procces.sh )
 
 Script is feed by a bed file with Alu exons 3´ss position separated by tab
 
@@ -37,7 +40,7 @@ Script is feed by a bed file with Alu exons 3´ss position separated by tab
 #
 1. Lift over the 3´ss to diferent genomes
 2. Split the bed file on individual files. Each bed line to a different bed file
-3. Get MaxEntSplice site score
+3. Get MaxEntSplice site score.  Predicted max entropy used
 4. Get fasta sequence, check that is correct and measure the longest U streech  - Whole alu
 5. Get fasta sequence, check that is correct and measure the longest U streech  - right arm
 6. Get fasta sequence, check that is correct and measure the longest U streech  - left arm
@@ -53,18 +56,18 @@ Script is feed by a bed file with Alu exons 3´ss position separated by tab
 #### Scripts called
 |Link|Description|
 |---|-----------|
-|[ lift_over_specie.py]( scr/python/lift_over_specie.py)|  Lift over bed file to a new bed file specifying the specie conversion. Optional flag to get fasta from those liftovers Seq|
+|[ ** lift_over_specie.py]( scr/python/lift_over_specie.py)|  Lift over bed file to a new bed file specifying the specie conversion. Optional flag to get fasta from those liftovers Seq|
 |[ split_bed_record.py ]( scr/python/split_bed_record.py)|   Return and split each line in separate file with file name equal to string repesenting the bed position on the genome   |
 |[ flankBEDpositionsStrandSpecific.py ]( scr/python/flankBEDpositionsStrandSpecific.py )|  The script will flank the region in both directions in a new bed file.   |
-|[ get_fasta_species.py ]( scr/python/get_fasta_species.py )|  Get fasta sequence from a specified genome  |
+|[ ** get_fasta_species.py ]( scr/python/get_fasta_species.py )|  Get fasta sequence from a specified genome  |
 |[ check_test_sequence.py ]( scr/python/check_test_sequence.py )|  Check that the fasta sequence is apropiate for downstream analysis    |
-|[findLongestStrech.py ]( scr/python/findLongestStrech.py)|  Find the longest strech of a given letter in a string (case insensitive)    |
+|[ ** findLongestStrech.py ]( scr/python/findLongestStrech.py)|  Find the longest strech of a given letter in a string (case insensitive)    |
 |[ get_aluexon_from_distance_from_alu2.py ]( scr/python/get_aluexon_from_distance_from_alu2.py)|  The script will get the distance between 3ss and Alu start    |
 
 
 ### 3.  3´ss features
 
-Main script [ Fig_4._3ss_Features.R  ]( /scr/R/Fig_4._3ss_Features.R )
+Main script [  ** Fig_4._3ss_Features.R  ]( /scr/R/Fig_4._3ss_Features.R )
 
 #### Usage:
 ` Rscript ./scr/R/Fig_4._3ss_Features.R `
@@ -78,7 +81,7 @@ Main script [   ](  )
 #### Scripts called
 |Link|Description|
 |---|-----------|
-|[ Fig_5.R ]( scr/R/Fig_5.R)|   Funcion to plot at the same time 3´ss UTrack on the whole Alu, right and left arms   |
+|[ ** Fig_5.R ]( scr/R/Fig_5.R)|   Funcion to plot at the same time 3´ss UTrack on the whole Alu, right and left arms   |
 |[  ]( )|      |
 |[  ](  )|      |
 |[  ](  )|      |
@@ -122,7 +125,7 @@ Main script [ get_tables_for_CLIP.sh  ]( scr/bash/get_tables_for%20CLIP.sh )
 
 Script download Xlink sites from iCount iCLIP web server.
 
-Use function [ xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh ) to asign Xlink count to each Alu exon on a bed file.
+Use function [ ** xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh ) to asign Xlink count to each Alu exon on a bed file.
 
 Finally R script [ Fig.8:Xlinks.R ]( scr/R/Fig.8:Xlinks.R ) filter the data and plot Violins densities of each class.
 
@@ -132,8 +135,8 @@ Finally R script [ Fig.8:Xlinks.R ]( scr/R/Fig.8:Xlinks.R ) filter the data and 
 #### Scripts called
 |Link|Description|
 |---|-----------|
-|[ xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh )|   Function to assign xlinks to BED file   |
-|[ get_tables_for_CLIP.sh  ]( scr/bash/get_tables_for%20CLIP.sh )|      |
+|[ ** xlinks_to_coverage.sh ]( scr/bash/xlinks_to_coverage.sh )|   Function to assign xlinks to BED file   |
+|[ get_tables_for_CLIP.sh  ]( scr/bash/get_tables_for%20CLIP.sh )|   Pipeline of iCLIP    |
 |[ Fig.8:Xlinks.R ]( scr/R/Fig.8:Xlinks.R )|   Plot iCLIP data   |
 
 ### 8.  Plots
