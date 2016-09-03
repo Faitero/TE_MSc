@@ -69,28 +69,53 @@ Script is feed by a bed file with Alu exons 3´ss position separated by tab
 
 Main script [  ** Fig_4._3ss_Features.R  ]( /scr/R/Fig_4._3ss_Features.R )
 
+Exploration of 3´splice site characteristics.
+
+Fig 4A .- Histogram of the distance from the 3´splice site to the start of Alu exon.
+
+Fig 4B .- Violin plots of the density of 3´splice site MaxEntScan score on the furthest Specie that we could fing Alu homologous sequences.
+
+Fig 4C .- Heat map of the 3´splice site MaxEntScan score on each specie.
+
 #### Usage:
 ` Rscript ./scr/R/Fig_4._3ss_Features.R `
 
 ### 4.  3´ss coupled with U track lenght
 
-Main script [   ](  )
-#### Usage:
-`   `
+Main script [ ** Fig_5.R ]( scr/R/Fig_5.R)
 
-#### Scripts called
-|Link|Description|
-|---|-----------|
-|[ ** Fig_5.R ]( scr/R/Fig_5.R)|   Funcion to plot at the same time 3´ss UTrack on the whole Alu, right and left arms   |
-|[  ]( )|      |
-|[  ](  )|      |
-|[  ](  )|      |
-|[  ](  )|      |
+
+#### Clasification of Alu exon by the evolutive path.
+
+
+1. First we get the most distant specie in wehere we could find homologous Alu sequences inserted (FURTHERST)
+
+2. Then we classified the Alu elements based on the evolutionary dynamics of their 3’ss.
+
+   - ‘Emerging’ Alu exons have a 3’ss with a score less than 3 in the most distant species.
+   - ‘Stable’ Alu-exons have a 3’ss higher than 3 in the species most distant to human, and its strength increased towards human by less than 1.
+   - ‘Evolving’ Alu-exons have a 3’ss higher than 3 in the species most distant to human, and its strength in human is more than 1+(score in the distant species). For example, if the score in marmoset is 2.5, then the Alu exon is considered as ‘emerging’, if it is 4 in marmoset and 4.5 in human, then it’s considered as ‘stable’, and if it’s 4 in marmoset and 6 in human, then it’s considered as ‘evolving’.
+
+3. Plot 3 splice site strenght, Longest U track on Alu, longest U track on left arm, longest U track on right arm
+
+
+
+#### Usage:
+` Rscipt .src/R/Fig_5.R `
 
 
 ### 5.  Contingency tables
 
 Main script [ Fig_6_Contingency table.R  ]( scr/R/Fig_6_Contingency%20table.R )
+
+To classify Alu elements by the divergence of their sequence in human genome compared to the Alu consensus, I used the nucleotide difference / 1000nt, which is provided for each Alu element in the human genome by the RepeatMasker table ((Smit et al. 2010), hg19, Repeat Library 20090604).). I split them in five equal quartiles ([23-99], [100-121], [122-146], [147-168] and [169-269] substitutions per 1,000 nucleotides).
+
+Then I apply a categorical Pearson test into a two-way contingency table, comparing 3´ splice site strength and U track length against number of nucleotide substitutions.
+To transform continuous data to categorical I have just get integer values from the 3´ splice site strength and from the U track length (already discrete data type).
+
+This contingency table were tested agains Pearson residual probability using mosaic R package (Pruim, 2016).
+
+
 #### Usage:
 ` Rscript ./src/R/Fig_6_Contingency%20table.R  `
 
