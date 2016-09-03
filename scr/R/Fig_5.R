@@ -1,4 +1,275 @@
 
+
+
+#################################
+## Clasification of Alu exon by the evolutive path.
+#################################
+#
+# 1. First we get the most distant specie in wehere we could find homologous Alu sequences inserted (FURTHERST)
+#
+# 2. Then we classified the Alu elements based on the evolutionary dynamics of their 3’ss.
+#   ‘Emerging’ Alu exons have a 3’ss with a score less than 3 in the most distant species.
+#   ‘Stable’ Alu-exons have a 3’ss higher than 3 in the species most distant to human, and its strength increased towards human by less than 1.
+#   ‘Evolving’ Alu-exons have a 3’ss higher than 3 in the species most distant to human, and its strength in human is more than 1+(score in the distant species). For example, if the score in marmoset is 2.5, then the Alu exon is considered as ‘emerging’, if it is 4 in marmoset and 4.5 in human, then it’s considered as ‘stable’, and if it’s 4 in marmoset and 6 in human, then it’s considered as ‘evolving’.
+#
+# 3. Plot 3 splice site strenght, Longest U track on Alu, longest U track on left arm, longest U track on right arm
+#
+#
+
+
+## Load data table from data preprocesing step
+read.table(total, file = "whole_final_5sp.WIDE.RICH.tab.tab", sep = "\t", na = "NA", row.names = FALSE, col.names = TRUE)
+
+
+
+
+#################################
+## Get the furthest specie in were an Alu exon have been lift over
+#################################
+
+
+# temporary file
+rnames <- total[,1]                                            # Get line names
+temp <- data.frame(total[,seq(24, ncol(total), 11)])           # Get column with 3´SSScore
+rownames(temp) <- rnames
+
+## Get the furtherst specie to fifted over
+
+temp1 <- data.frame(total[,1])      # Get line names
+
+
+## Go over each line and add 3´ss score on a list
+for (i in 1:nrow(temp)) {
+  lista <- list()
+  lista <- unname(unlist(temp[i,]))
+  lista_n <- lista[!is.na(lista)]                             # Remove any NA (if NA is present is because Alu exon could not been lift over on that specie)
+  temp1$furthest_all[i] <- as.character(list(lista))
+  temp1$furthest[i] <- as.character(tail(lista_n, n=1))       # Last element on the list is the FURTHEST specie to been lift over
+
+}
+head(temp1)
+class(temp1)
+
+## Add FURTHEST coloumn info on table
+names(temp1) <- c("aluexon", "furthest_all", "furthest")
+total_furthest <- merge.data.frame(total, temp1, by="aluexon", all=TRUE)
+total_furthest <- cbind(total, temp1)
+
+
+#################################
+## Get the furthest specie in were an Alu exon have been lift over
+#################################
+#
+# 2. Then we classified the Alu elements based on the evolutionary dynamics of their 3’ss.
+#   ‘Emerging’ Alu exons have a 3’ss with a score less than 3 in the most distant species.
+#   ‘Stable’ Alu-exons have a 3’ss higher than 3 in the species most distant to human, and its strength increased towards human by less than 1.
+#   ‘Evolving’ Alu-exons have a 3’ss higher than 3 in the species most distant to human, and its strength in human is more than 1+(score in the distant species). For example, if the score in marmoset is 2.5, then the Alu exon is considered as ‘emerging’, if it is 4 in marmoset and 4.5 in human, then it’s considered as ‘stable’, and if it’s 4 in marmoset and 6 in human, then it’s considered as ‘evolving’.
+#
+
+
+######## Alu exons present in marmoset
+
+## CalJack 3ss higher than 3
+cal_high_3ss <- subset(queries, queries$"X3SSS_calJac3" >=3) # 1406
+## Create new column
+cal_high_3ss$human_minus_marmoset <- cal_high_3ss$X3SSS_hg19 - cal_high_3ss$X3SSS_calJac3
+##
+higher_marmoset <- subset(cal_high_3ss, cal_high_3ss$human_minus_marmoset <= 1 )
+higher_human <- subset(cal_high_3ss, cal_high_3ss$human_minus_marmoset > 1 )
+drops <- c("human_minus_marmoset")
+higher_marmoset <- higher_marmoset[, !(names(higher_marmoset) %in% drops)]
+higher_human <- higher_human[, !(names(higher_human) %in% drops)]
+
+
+#cal_lower_3ss <- subset(queries, queries$"X3SSS_calJac3" <3) # 1748
+#cal_lower_3ss <- rbind(cal_lower_3ss, higher_marmoset)
+
+cal_lower_3ss <- subset(queries, queries$"X3SSS_calJac3" <3)
+## higher_human <- rbind(cal_lower_3ss, higher_human)  ### Jernej says to join this two toghether but I did not
+
+### Two groups to plot higher_marmoset and higher_human
+# Maybe it will be nice to get the rest... on somethins similat to== rest <- queries[!(rownames(queries) %in% rownames(cal_high_3ss)) & !(rownames(queries) %in% rownames(cal_low_3ss)) & !(rownames(queries) %in% rownames(mac_high_3ss_no_oldMonkey)) & !(rownames(queries) %in% rownames(mac_low_3ss_no_oldMonkey)),] #1901
+
+higher_marmoset_l <- wide_to_long(higher_marmoset, "Constant Exon")
+higher_human_l <- wide_to_long(higher_human, "Evolving Exon")
+cal_lower_3ss_l <- wide_to_long(cal_lower_3ss, "Emerging Exon")
+
+final_data_frame <- rbind(cal_lower_3ss_l, higher_human_l,  higher_marmoset_l)
+
+#final_data_frame[] <- lapply(final_data_frame, as.character)
+
+exons_originated_marmoset <- final_data_frame
+
+write.table(exons_originated_marmoset, file = "exons_originated_marmoset.tab", sep = "\t", na = "NA", row.names = FALSE, col.names = TRUE)
+
+
+
+
+
+######## Exons originated in Rhesus or Baboon papHam1"="Baboon", "rheMac3
+
+##!!!!!! Load again the previous tables before function wide to long !!!!!!!
+rest1 <- queries[!(rownames(queries) %in% rownames(cal_high_3ss)) & !(rownames(queries) %in% rownames(cal_lower_3ss)),] # & !(rownames(queries) %in% rownames(mac_high_3ss_no_oldMonkey)) & !(rownames(queries) %in% rownames(mac_low_3ss_no_oldMonkey)),] #1278
+
+## Check that the number of row is the same in all of them
+nrow(queries) == nrow(cal_high_3ss) + nrow(cal_lower_3ss) + nrow(rest1) #+ nrow(mac_low_3ss_no_oldMonkey) + nrow(newers_primates) + nrow(old_monkeys)
+
+
+## Rhesus 3ss higher than 3
+rhes_high_3ss <- subset(rest1, rest1$X3SSS_rheMac3 >= 3 )
+
+
+## Create new column 3ss human - (3ss rhesus OR 3ss baboon) < 1
+
+rhes_high_3ss$human_minus_rhes_papH  <- (rhes_high_3ss$X3SSS_hg19  - rhes_high_3ss$X3SSS_rheMac3)
+
+# display.brewer.pal(9, "Greens")
+# col <- brewer.pal(9, "Greens")[c(2:6)]
+
+higher_rhes <- subset(rhes_high_3ss, rhes_high_3ss$human_minus_rhes_papH < 1)
+higher_human <- subset(rhes_high_3ss, rhes_high_3ss$human_minus_rhes_papH >= 1)
+## Remove new column
+drops <- c("human_minus_rhes_papH")
+higher_human_rhes <- higher_human[, ! (names(higher_human) %in% drops)]
+drops <- c("human_minus_rhes_papH")
+higher_rhes <- higher_rhes[, !(names(higher_rhes) %in% drops)]
+
+
+
+rhes_papH_lower_3ss <- subset(rest1, rest1$X3SSS_rheMac3 < 3)
+#higher_human_rhes_papH <- rbind(higher_human_rhes_papH, rhes_papH_lower_3ss)   ### Jernej says to join this two toghether but I did not
+
+
+### Two groups to plot rhes_papH_lower_3ss and higher_human_rhes_papH
+# Maybe it will be nice to get the rest... on somethins similat to== rest <- queries[!(rownames(queries) %in% rownames(cal_high_3ss)) & !(rownames(queries) %in% rownames(cal_low_3ss)) & !(rownames(queries) %in% rownames(mac_high_3ss_no_oldMonkey)) & !(rownames(queries) %in% rownames(mac_low_3ss_no_oldMonkey)),] #1901
+
+higher_rhes_l <- wide_to_long(higher_rhes, "Constant Exon")
+higher_human_rhes_l <- wide_to_long(higher_human_rhes, "Evolving Exon")
+rhes_papH_lower_3ss_l <- wide_to_long(rhes_papH_lower_3ss, "Emerging Exon")
+
+
+final_data_frame <- rbind(final_data_frame, rhes_papH_lower_3ss_l, higher_human_rhes_l, higher_rhes_l )  ## Join with previous clasificatin in Marmoset
+
+
+exons_originated_rhesus <- final_data_frame
+
+write.table(exons_originated_rhesus, file = "exons_originated_rhesus.tab", sep = "\t", na = "NA", row.names = FALSE, col.names = TRUE)
+
+
+
+
+
+######## Exons originated in Chimp or Gibon ## Exons originated in Rhesus or Baboon papHam1"="Baboon", "rheMac3
+
+##!!!!!! Load again the previous tables before function wide to long
+rest2 <- queries[!(rownames(queries) %in% rownames(cal_high_3ss)) & !(rownames(queries) %in% rownames(cal_lower_3ss)) & !(rownames(queries) %in% rownames(higher_rhes)) & !(rownames(queries) %in% rownames(higher_human_rhes)) & !(rownames(queries) %in% rownames(rhes_papH_lower_3ss)),] # & !(rownames(queries) %in% rownames(mac_high_3ss_no_oldMonkey)) & !(rownames(queries) %in% rownames(mac_low_3ss_no_oldMonkey)),] #1278
+
+## Check that the number of row is the same in all of them
+nrow(queries) == nrow(cal_high_3ss) + nrow(cal_lower_3ss) + nrow(rhes_high_3ss) + nrow(rhes_papH_lower_3ss) + nrow(rest2) #+ nrow(mac_low_3ss_no_oldMonkey) + nrow(newers_primates) + nrow(old_monkeys)
+
+## Chimp Bonobo or Gibon 3ss higher than 3
+chimp_gibo_high_3ss <- subset(rest2, rest2$X3SSS_nomLeu1 >= 3 | rest2$X3SSS_panTro4 >= 3)
+
+rnames <- chimp_gibo_high_3ss[,1]
+temp <- data.frame(chimp_gibo_high_3ss[,seq(35, 46, 11)])
+rownames(temp) <- rnames
+
+temp[1,]
+
+## Get the furtherst specie to fifted over
+temp1 <- data.frame(chimp_gibo_high_3ss[,1])
+for (i in 1:nrow(temp)) {
+  lista <- list()
+  lista <- unname(unlist(temp[i,]))
+  lista_n <- lista[!is.na(lista)]
+  temp1$furthest_all_rhes_papH[i] <- as.character(list(lista))
+  temp1$furthest_rhes_papH[i] <- as.character(tail(lista_n, n=1))
+
+}
+head(temp1)
+
+
+
+names(temp1) <- c("aluexon", "furthest_all_chimp_gibo", "furthest_chimp_gibo")
+total_furthest_chimp_gibo <- merge.data.frame(chimp_gibo_high_3ss, temp1, by="aluexon", all=TRUE)
+#total_furthest_chimp_gibo <- cbind(chimp_gibo_high_3ss, temp1)
+
+
+## Create new column 3ss human - (3ss the oldest of chimp OR bono OR gibo) < 1
+for (i in 1:nrow(total_furthest_chimp_gibo)){
+  if (total_furthest_chimp_gibo$furthest_chimp_gibo[i]  == "nomLeu1"){
+
+    total_furthest_chimp_gibo$human_minus_chimp_gibo[i]  <- (total_furthest_chimp_gibo$X3SSS_hg19[i]  - total_furthest_chimp_gibo$X3SSS_nomLeu1[i] )
+
+  }else if (total_furthest_chimp_gibo$furthest_chimp_gibo[i]  == "panTro4"){
+    total_furthest_chimp_gibo$human_minus_chimp_gibo[i]  <- (total_furthest_chimp_gibo$X3SSS_hg19[i]  - total_furthest_chimp_gibo$X3SSS_panTro4[i] )
+
+  }else{
+    total_furthest_chimp_gibo$human_minus_chimp_gibo[i]  <- 'NA'
+  }
+}
+
+
+higher_chimp_gibo <- subset(total_furthest_chimp_gibo, total_furthest_chimp_gibo$human_minus_chimp_gibo < 1)
+higher_human_chimp_gibo <- subset(total_furthest_chimp_gibo, total_furthest_chimp_gibo$human_minus_chimp_gibo >= 1)
+## Remove new column
+drops <- c("human_minus_chimp_gibo", "aluexon.1", "aluexon.2" , "furthest_all_chimp_gibo", "furthest_chimp_gibo")
+higher_chimp_gibo <- higher_chimp_gibo[, !(names(higher_chimp_gibo) %in% drops)]
+
+higher_human_chimp_gibo <- higher_human_chimp_gibo[, !(names(higher_human_chimp_gibo) %in% drops)]
+
+## Rest of queries$X3SSS_nomLeu1 >= 3 | queries$X3SSS_panPan1 >= 3 | queries$X3SSS_panTro4 >= 3  ## Since its OR (could be < than 3 in other columns.. we have to deal with the rest
+rest <- rest2[!(rownames(rest2) %in% rownames(chimp_gibo_high_3ss)),]
+chimp_gibo_lower_3ss <- subset(rest, rest$X3SSS_nomLeu1 < 3 | rest$X3SSS_panTro4 < 3 )
+
+higher_chimp_gibo_l <- wide_to_long(higher_chimp_gibo, "Constant Exon")
+higher_human_chimp_gibo_l <- wide_to_long(higher_human_chimp_gibo, "Evolving Exon")
+chimp_gibo_lower_3ss_l <- wide_to_long(chimp_gibo_lower_3ss, "Emerging Exon")
+
+
+final_data_frame <- rbind(final_data_frame, chimp_gibo_lower_3ss_l, higher_human_chimp_gibo_l, higher_chimp_gibo_l)
+
+
+
+exons_originated_chimp_gibbon <- final_data_frame
+
+write.table(exons_originated_chimp_gibbon, file = "exons_originated_chimp_gibbon.tab", sep = "\t", na = "NA", row.names = FALSE, col.names = TRUE)
+
+
+
+######################################################
+######## Plot Fig 5 A B C
+######################################################
+
+#################################
+## Plot Fig 5 A B C
+#################################
+#
+# 3. Plot 3 splice site strenght, Longest U track on Alu, longest U track on left arm, longest U track on right arm
+
+
+###############
+
+setwd('./Results' )
+
+## Set name of the experiment to "Exons Marmoset Originated" Alu exons that have been originated in
+experiment_name <- "Exons Marmoset Originated"
+
+## Call Funcion passing the data_frame to plot
+plot_custom_bar_plots(exons_originated_marmoset, experiment_name)
+
+## Now with Alu exons orginated in rhesus
+experiment_name <- "Exons rhesus Originated"
+plot_custom_bar_plots(exons_originated_rhesus, experiment_name)
+
+## Now with Alu exons orginated in chimp or gibbon
+experiment_name <- "Exons chimp_gibbon Originated"
+plot_custom_bar_plots(exons_originated_chimp_gibbon, experiment_name)
+
+
+
+#####################################   Functions   #############################################################
+
 ## In this scipt I have created two funcions
 #  1. WIDE to LONG allow to extract any column from WIDE table, factorise the column/elemnt studied and return a LONG table ready to plot
 #  2. Function that is feed with dataframe in LONG format of AluID 3SSS UTRack_whole UtrackLeft UtraclRight
@@ -6,21 +277,19 @@
 #
 # Usage:
 #         plot_custom_bar_plots(final_data_frame, experiment_name)
+#
+# Example:
+#         experiment_name <- "Exons Marmoset Originated"
+#         plot_custom_bar_plots(exons_originated_marmoset, experiment_name)
 
-
-setwd('/Results' )
-
-## Set name of the experiment to label and save the plots
-experiment_name <- "Exons Marmoset Originated"
-
-## Call Funcion passing the data_frame to plot
-plot_custom_bar_plots(final_data_frame, experiment_name)
-
-#####################################   Functions   #############################################################
 
 ############################################
 ## Function creates a LONG table (need to plot) from the WIDE
 ############################################
+#
+# WIDE to LONG allow to extract any column from WIDE table, factorise the column/elemnt studied and return a LONG table ready to plot
+#
+Function that is feed with dataframe in LONG format of AluID 3SSS UTRack_whole UtrackLeft UtraclRight
 
 wide_to_long <- function(data_frame, new_column){
   
@@ -51,6 +320,15 @@ wide_to_long <- function(data_frame, new_column){
   return(out_data_frame)
   
 }
+
+############################################
+## Function creates a LONG table (need to plot) from the WIDE
+############################################
+#
+# Function that is feed with dataframe in LONG format of AluID 3SSS UTRack_whole UtrackLeft UtraclRight
+#
+
+
 
 ############################################
 ## Plots for X3SSS WU U1 and U2
