@@ -119,7 +119,7 @@ This contingency table were tested agains Pearson residual probability using mos
 #### Usage:
 ` Rscript ./src/R/Fig_6_Contingency%20table.R  `
 
-### 6.  Allu 3´ss alignment and motif discovery
+### 6.  Alu 3´ss alignment and motif discovery
 
 Main script [ Alu_motives.sh ]( scr/bash/Alu_motives.sh )
 
