@@ -4,6 +4,10 @@
 ##################################
 ########    Figure 4A       ######
 ##################################
+#
+#   Histogram of the distance from the 3´splice site to the start of Alu exon
+#
+
 
 #### histogram Alu exons evolution
 library(ggplot2)
@@ -43,7 +47,10 @@ ggsave("3SSS _distance_withind_Alu.pdf", width=20, height=13)
 ##################################
 ########    Figure 4B       ######
 ##################################
-
+#
+#   Violin plots of the density of 3´splice site strenght on the furthest Specie that we could fing Alu homologous sequences
+#
+#
 
 
 ## Load rich WIDE table
