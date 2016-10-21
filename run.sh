@@ -1,14 +1,17 @@
 #!/bin/bash -l
 
-### This pipeline will produce all the analysis and the plots from this thesis
-### Each script contain detailed  information on how it work
-### Refer to /src/python or /src/bash /src/R to find all the script listed here
+### This pipeline will produce all the analysis and the plots from this evolutionary analysis on primate lineage
+### Each script contain detailed usage information and acctions are commented
+### Refer to /src/python or /src/bash /src/R to find all the script used
 
+# Input bed file with Alu exon positions
+bed_file=$1
 
-
+# Create Data folder
+mkdir Data
 
 ### Feed with the raw table of Allu exon positions
-awk '{print $2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7}' '/Data/all.known.Aluexons(Alus.UCSCandRNAseq).bed' > './Data/All_Aluexons.bed'
+awk '{print $2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7}' $bed_file > './Data/Alu_exons/All_Aluexons.bed'
 
 ### Get the 3SS  -2 in positive strand   !!! I detected that file have 2nt mismacth incorrect position on the positive strand. With this is corrected
 python './src/python/get_start_position_from_bed_corrected.py' './Data/All_Aluexons.bed' './Data/All_Aluexons_3SS.bed'
@@ -63,14 +66,15 @@ python './src/python/add_ID_to_bed.py' './Data/All_Aluexons_3SS_AS_sort.bed' './
 bedtools intersect -wao -a './Data/All_Aluexons_3SS_hg19_ID.bed' -b '/media/igor/DATA/UCL/Evolution_Alus/Raw_Alus/rmsk_hg19_full_family_Alu_elements.bed' > './Data/All_Aluexons_3SS_hg19_Distance.bed'
 
 
-
 ### For real 3'SS 
 python './src/python/3SS_distance_from_alu.py' './Data/All_Aluexons_3SS_hg19_Distance.bed' './Data/All_Aluexons_3SS_hg19_Distance_to_alu.bed'
 
-## lift over in all the studied genomes and create full table (
+############################################################
+### 2  Lift over in all the studied genomes and create full table
+############################################################
+
 cp './Data/All_Aluexons_3SS_hg19_Distance_to_alu.bed' './Data/All_Aluexons_3SS_hg19_Distance.bed'
 bash ./src/bash/lift_and_procces.sh './Data/All_Aluexons_3SS_hg19_Distance.bed'
-
 
 
 ## From the TE full table get only Alus elements
@@ -84,7 +88,7 @@ bedtools intersect -wao -a  './Data/All_Aluexons_3SS_hg19_Distance_to_alu.bed' -
 
 
 ############################################################
-### To get negative controls of alus in intronic sequences
+### To get negative controls of alus on intronic sequences
 ############################################################
 
 ### Get alus that are in antisense of transcripts (
@@ -98,7 +102,7 @@ shuf './Data/Random_Aluelements_AS.bed' | head -10000 | sort -k 1,1 -k2,2n -u > 
 sort -k 1,1 -k2,2n -k3,3n -k6,6 -u './Data/Random_alu_exons.bed' > './Data/All_Aluexons_3SS_AS_sort.bed'
 
 
-cat './Data/Random_alu_exons.bed' | wc -l  ###9811 
+cat './Data/Random_alu_exons.bed' | wc -l  ### 9811 Random Alu exons
 
 
 ##Get a imaginary 3SS 20 nt inside the exon
@@ -127,21 +131,19 @@ python './src/python/3SS_distance_from_alu.py' './Data/Random_alu_exons_3SS_C_di
 ## lift over in all the studied genomes and create full table (
 cp './Data/Random_alu_exons_3SS_C_distance_to_alu.bed' './Data/Random_alu_exons_3SS_distance.bed'
 
-
-
+############################################################
+### 2.1  Lift Over and Process full table for Random Alu elements
+############################################################
 
 ############# Main script that lift over each sequence and get 3´ss strengt, longest U track, Longest U track on right arm, longest U track on left arm
 ./lift_and_procces.sh './Data/Random_alu_exons_3SS_distance.bed'
 
 
+############################################################
+### 3. Data pre-processing
+############################################################
+#
+# R script will merge all previous data coming from Lift over in a LONG and WIDE format tables.
 
-
-
-### rename files
-mmv 'All_Aluexons_3SS_hg19_Distance_hg19_*' '#1'
-mmv 'All_Aluexons_3SS_hg19_Distance_hg38_*' '#1'
-
-
-
-
+Rscript /scr/R/Data_Prepocesig.R
 

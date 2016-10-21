@@ -58,10 +58,10 @@ for file in $FILES; do
 
 	python './src/python/lift_over_specie.py' ./${DIR}/${filename}_C.bed hg19 hg38 ./${DIR}/${filename}_hg19_hg38.bed FALSE
 
-	python './src/python/lift_over_specie.py' ./"$DIR"/${filename}_hg19_hg38.bed hg38 panTro4 ./${DIR}/${filename}_hg38_panTro4.bed FALSE
-	python './src/python/lift_over_specie.py' ./"$DIR"/${filename}_hg19_hg38.bed hg38 panPan1 ./${DIR}/${filename}_hg38_panPan1.bed FALSE
-	python './src/python/lift_over_specie.py' ./"$DIR"/${filename}_hg19_hg38.bed hg38 rheMac3 ./"$DIR"/${filename}_hg38_rheMac3.bed FALSE
-	python './src/python/lift_over_specie.py' ./"$DIR"/${filename}_hg19_hg38.bed hg38 tarSyr2 ./"$DIR"/${filename}_hg38_tarSyr2.bed FALSE
+	python './src/python/lift_over_specie.py' ./${DIR}/${filename}_hg19_hg38.bed hg38 panTro4 ./${DIR}/${filename}_hg38_panTro4.bed FALSE
+	python './src/python/lift_over_specie.py' ./${DIR}/${filename}_hg19_hg38.bed hg38 panPan1 ./${DIR}/${filename}_hg38_panPan1.bed FALSE
+	python './src/python/lift_over_specie.py' ./${DIR}/${filename}_hg19_hg38.bed hg38 rheMac3 ./"$DIR"/${filename}_hg38_rheMac3.bed FALSE
+	python './src/python/lift_over_specie.py' ./${DIR}/${filename}_hg19_hg38.bed hg38 tarSyr2 ./"$DIR"/${filename}_hg38_tarSyr2.bed FALSE
 	python './src/python/lift_over_specie.py' ./${DIR}/${filename}_C.bed hg19 otoGar1 ./"$DIR"/${filename}_hg19_otoGar1.bed FALSE
 	python './src/python/lift_over_specie.py' ./${DIR}/${filename}_C.bed hg19 micMur1 ./"$DIR"/${filename}_hg19_micMur1.bed FALSE
 	python './src/python/lift_over_specie.py' ./${DIR}/${filename}_C.bed hg19 tupBel1 ./"$DIR"/${filename}_hg19_tupBel1.bed FALSE
@@ -121,9 +121,6 @@ for file in $FILES; do
 			echo 'BaseName  ' "$bed_filename"
 
 
-
-
-
             ## Get 19 nt upstream 3´s and 3 downstream on bed file and then get fasta file
 			python './src/python/flankBEDpositionsStrandSpecific.py' "$bed_position" ./"$DIR_BED"/"$bed_filename"-19_3.bed 19 3
 			python './src/python/get_fasta_species.py' ./"$DIR_BED"/"$bed_filename"-19_3.bed ${arr[6]} ./"$DIR_BED"/"$bed_filename".fasta
@@ -175,7 +172,7 @@ for file in $FILES; do
             ###### Create tab file with all the results ########
             ################################################
 
-            ##  6) Return a tabular table with all of those results
+            ##  6) Return a tabular table with all of previous results
 
             ## Create file
 			cat "$bed_position" > ./${OUTDIR}/temp_file.tab

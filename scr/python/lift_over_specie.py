@@ -5,12 +5,15 @@ Created on 2 March 2016
 
 @author: Igor Ruiz de los Mozos
 
-lift over bed file to a new bed file specifying the specie conversion. Optional flag to get fasta from those liftovers
+Lift over bed file to a new bed file specifying the specie conversion. Optional flag to get fasta from those liftovers
 
 Specify genome_dir variable to download chains for lift over and genome fasta to get fasta
 
 Usage:  python lift_over_specie.py bedIN lift_from lift_to bedOUT optionalFlag  \n optionalFlag_getFasta=TRUE, FALSE OR empty
 
+Available genomes:
+#Human, Chimp, Bonobo, Gibon, Baboon, Rhesus, Marmoset, Tarsier, Lemur, Bushbaby, Tree shrew
+#hg38, panTro4, panPan1, nomLeu1, papHam1, rheMac3, calJac3, tarSyr2, micMur1, otoGar1, tupBel1
 
 '''
 import sys
@@ -46,8 +49,7 @@ else:
 
 ## Asign lift_from and chain_url variable - This depend on starting genome final genome to lift over -
 
-#Human, Chimp, Bonobo, Gibon, Baboon, Rhesus, Marmoset, Tarsier, Lemur, Bushbaby, Tree shrew
-#hg38, panTro4, panPan1, nomLeu1, papHam1, rheMac3, calJac3, tarSyr2, micMur1, otoGar1, tupBel1
+
 
 if lift_from=='hg19' and lift_to=='hg38':
     chain_url='hgdownload.cse.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz'

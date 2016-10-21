@@ -16,7 +16,7 @@ from Bio import SeqIO
 from decimal import *
 
 
-## Function to count the longest streeches of a give nucleotide
+## Function to count the longest streeches of a given nucleotide
 def count_streches(sequence, letter_to_find):
     lenght=0
     lenght=max(len(list(y)) for (c,y) in itertools.groupby(sequence) if c==letter_to_find)

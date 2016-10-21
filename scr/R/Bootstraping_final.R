@@ -1,4 +1,10 @@
-### Bootstrapping WU and 3ss Final
+#!/usr/bin/env Rscript
+
+## Created on 20th of may  2016
+## @author: Igor Ruiz de los Mozos
+
+
+### Bootstrapping of U Track lenght and 3'Splice sites strenght on all the species lifted over on this study
 
 library(ggplot2)
 require(ggplot2)
@@ -22,9 +28,6 @@ setwd('/home/igor/Dropbox (UCL-MN Team)/hnRNPC.NMD (1).manuscript/Alus_primates_
 hg19 <- read.table(("All_Aluexons_3SS_hg19_Distance_hg19_hg19.tab"), sep="\t",  header = TRUE)
 hg19$region <- "hg19"
 
-#panPan1<- read.table("All_Aluexons_3SS_hg19_Distance_hg38_panPan1.tab", sep="\t", header = TRUE)
-#panPan1$region <- "panPan1"
-
 panTro4<- read.table("All_Aluexons_3SS_hg19_Distance_hg38_panTro4.tab", sep="\t", header = TRUE)
 panTro4$region <- "panTro4"
 
@@ -37,14 +40,8 @@ calJac3$region <- "calJac3"
 nomLeu1<- read.table("All_Aluexons_3SS_hg19_Distance_hg19_nomLeu1.tab", sep="\t",  header = TRUE)
 nomLeu1$region <- "nomLeu1"
 
-#papHam1<- read.table("All_Aluexons_3SS_hg19_Distance_hg19_papHam1.tab", sep="\t",  header = TRUE)
-#papHam1$region <- "papHam1"
 
-
-
-#genome_list <-list(hg19, hg38, panTro4, panPan1, nomLeu1, papHam1, rheMac3, calJac3, tarSyr2, micMur1, otoGar1, tupBel1) 
 whole <- rbind(hg19, panTro4, nomLeu1, rheMac3, calJac3)
-#whole <- rbind(hg19, panTro4, panPan1, nomLeu1, papHam1, rheMac3, calJac3) 
 
 colMax <- function(whole) sapply(whole, max, na.rm = TRUE) ## get biger value in a column
 colMin <- function(whole) sapply(whole, min, na.rm = TRUE) ## get min value in a column
@@ -58,12 +55,7 @@ all_table <- data.frame(table(whole$region))
 all_table 
 
 
-#write.table(whole_final, file = "whole_final.bed", sep = "\t", na = "NA", row.names = FALSE, col.names = TRUE)
-
-
 names(hg19)<- c("chr_hg19",  "start_hg19",  "end_hg19",  "aluexon",  "position_hg19",	"strand_hg19",	"distance_hg19",	"3SSS_hg19",	"WU_hg19",	"U1_hg19",	"U2_hg19", "region_hg19")
-
-#names(panPan1)<- c("chr_panPan1",	"start_panPan1",	"end_panPan1",	"aluexon",	"position_panPan1",	"strand_panPan1",	"distance_panPan1",	"3SSS_panPan1",	"WU_panPan1",	"U1_panPan1",	"U2_panPan1", "region_panPan1")
 
 names(panTro4)<- c("chr_panTro4",	"start_panTro4",	"end_panTro4",	"aluexon",	"position_panTro4",	"strand_panTro4",	"distance_panTro4",	"3SSS_panTro4",	"WU_panTro4",	"U1_panTro4",	"U2_panTro4", "region_panTro4")
 
@@ -73,12 +65,6 @@ names(calJac3)<- c("chr_calJac3",	"start_calJac3",	"end_calJac3",	"aluexon",	"po
 
 names(nomLeu1)<- c("chr_nomLeu1",	"start_nomLeu1",	"end_nomLeu1",	"aluexon",	"position_nomLeu1",	"strand_nomLeu1",	"distance_nomLeu1",	"3SSS_nomLeu1",	"WU_nomLeu1",	"U1_nomLeu1",	"U2_nomLeu1", "region_nomLeu1")
 
-#names(papHam1)<- c("chr_papHam1",	"start_papHam1",	"end_papHam1",	"aluexon",	"position_papHam1",	"strand_papHam1",	"distance_papHam1",	"3SSS_papHam1",	"WU_papHam1",	"U1_papHam1",	"U2_papHam1", "region_papHam1")
-
-
-#("hg19"="1", "hg38"="2", "panTro4"="3", "panPan1"="4", "nomLeu1"="5", "papHam1"="6", "rheMac3"="7", "calJac3"="8", "tarSyr2"="9", "micMur1"="10", "otoGar1"="11", "tupBel1"="12")  
-
-#genome_list <-list(hg19, panTro4, panPan1, nomLeu1, papHam1, rheMac3, calJac3) 
 genome_list <-list(hg19, panTro4, nomLeu1, rheMac3, calJac3)
 
 total <- read.table("All_Aluexons_3SS_hg19_DQ.bed", sep="\t")
@@ -123,25 +109,19 @@ total_furthest <- cbind(total, temp1)
 
 
 
-
-#setwd('/media/igor/DATA/UCL/Evolution_Alus/New3SS/Output_tables')
-#write.table(total_furthest, file = "total_furthest.tab", sep = "\t", na = "NA", row.names = FALSE, col.names = TRUE)
+#write.table(total_furthest, file = "/Results/total_furthest.tab", sep = "\t", na = "NA", row.names = FALSE, col.names = TRUE)
 
 
 queries <- total_furthest
 ## Change colnames to introduce X in front of 3SS score...
 names(queries)[names(queries) == '3SSS_hg19'] <- 'X3SSS_hg19'
 names(queries)[names(queries) == '3SSS_panTro4'] <- 'X3SSS_panTro4'
-#names(queries)[names(queries) == '3SSS_panPan1'] <- 'X3SSS_panPan1'
 names(queries)[names(queries) == '3SSS_nomLeu1'] <- 'X3SSS_nomLeu1'
-#names(queries)[names(queries) == '3SSS_papHam1'] <- 'X3SSS_papHam1'
 names(queries)[names(queries) == '3SSS_rheMac3'] <- 'X3SSS_rheMac3'
 names(queries)[names(queries) == '3SSS_calJac3'] <- 'X3SSS_calJac3'
 
 colnames(queries)
 
-
-setwd('/media/igor/DATA/UCL/Evolution_Alus/New3SS/Output_R')
 
 wide_to_long <- function(data_frame, new_column){
   
@@ -155,11 +135,6 @@ wide_to_long <- function(data_frame, new_column){
   nomLeu1_q<-  data.frame(data_frame[,1], data_frame[,36:46])
   rheMac3_q <- data.frame(data_frame[,1], data_frame[,47:57])
   calJac3_q <- data.frame(data_frame[,1], data_frame[,58:68])
-  
-  # <- data.frame(data_frame[,1], data_frame[,69:79])
-  # <- data.frame(data_frame[,1], data_frame[,80:90])
-  #rest <- data.frame(data_frame[,1], data_frame[,91:101])
-  
   
   
   out_data_frame <- rbind(hg19_q, pantro4_q, nomLeu1_q, rheMac3_q, calJac3_q)
@@ -189,10 +164,7 @@ higher_human <- higher_human[, !(names(higher_human) %in% drops)]
 #cal_lower_3ss <- rbind(cal_lower_3ss, higher_marmoset)
 
 cal_lower_3ss <- subset(queries, queries$"X3SSS_calJac3" <3)
-## higher_human <- rbind(cal_lower_3ss, higher_human)  ### Jernej says to join this two toghether but I did not
-
-### Two groups to plot higher_marmoset and higher_human
-# Maybe it will be nice to get the rest... on somethins similat to== rest <- queries[!(rownames(queries) %in% rownames(cal_high_3ss)) & !(rownames(queries) %in% rownames(cal_low_3ss)) & !(rownames(queries) %in% rownames(mac_high_3ss_no_oldMonkey)) & !(rownames(queries) %in% rownames(mac_low_3ss_no_oldMonkey)),] #1901
+## higher_human <- rbind(cal_lower_3ss, higher_human)
 
 higher_marmoset_l <- wide_to_long(higher_marmoset, "Constant Exon")
 higher_human_l <- wide_to_long(higher_human, "Evolving Exon")
@@ -207,6 +179,7 @@ final_data_frame <- rbind(cal_lower_3ss_l, higher_human_l,  higher_marmoset_l)
 #################################
 ## Exons originated in Rhesus or Baboon papHam1"="Baboon", "rheMac3
 #################################
+
 ##!!!!!! Load again the previous tables before function wide to long
 rest1 <- queries[!(rownames(queries) %in% rownames(cal_high_3ss)) & !(rownames(queries) %in% rownames(cal_lower_3ss)),] # & !(rownames(queries) %in% rownames(mac_high_3ss_no_oldMonkey)) & !(rownames(queries) %in% rownames(mac_low_3ss_no_oldMonkey)),] #1278
 
@@ -223,10 +196,6 @@ rhes_high_3ss <- subset(rest1, rest1$X3SSS_rheMac3 >= 3 )
 rhes_high_3ss$human_minus_rhes_papH  <- (rhes_high_3ss$X3SSS_hg19  - rhes_high_3ss$X3SSS_rheMac3)
 
 
-
-# display.brewer.pal(9, "Greens")
-# col <- brewer.pal(9, "Greens")[c(2:6)]
-
 higher_rhes <- subset(rhes_high_3ss, rhes_high_3ss$human_minus_rhes_papH < 1)
 higher_human <- subset(rhes_high_3ss, rhes_high_3ss$human_minus_rhes_papH >= 1)
 ## Remove new column
@@ -235,14 +204,7 @@ higher_human_rhes <- higher_human[, ! (names(higher_human) %in% drops)]
 drops <- c("human_minus_rhes_papH")
 higher_rhes <- higher_rhes[, !(names(higher_rhes) %in% drops)]
 
-
-
 rhes_papH_lower_3ss <- subset(rest1, rest1$X3SSS_rheMac3 < 3)
-#higher_human_rhes_papH <- rbind(higher_human_rhes_papH, rhes_papH_lower_3ss)   ### Jernej says to join this two toghether but I did not
-
-
-### Two groups to plot rhes_papH_lower_3ss and higher_human_rhes_papH
-# Maybe it will be nice to get the rest... on somethins similat to== rest <- queries[!(rownames(queries) %in% rownames(cal_high_3ss)) & !(rownames(queries) %in% rownames(cal_low_3ss)) & !(rownames(queries) %in% rownames(mac_high_3ss_no_oldMonkey)) & !(rownames(queries) %in% rownames(mac_low_3ss_no_oldMonkey)),] #1901
 
 higher_rhes_l <- wide_to_long(higher_rhes, "Constant Exon")
 higher_human_rhes_l <- wide_to_long(higher_human_rhes, "Evolving Exon")
@@ -345,9 +307,6 @@ tot <- data.frame(Median=as.numeric(),
 
 lista <- c("hg19", "hg19", "panTro4", "nomLeu1", "rheMac3", "calJac3")
 
-#lista <- c("hg19", "hg19", "panTro4") #, "nomLeu1", "rheMac3", "calJac3")
-
-
 # toboot <- final_data_frame [ final_data_frame$region == "hg19",]
 
 
@@ -368,8 +327,7 @@ for (genome in lista){
   }
   
   #toboot$group
-  
-  
+
   bootobject1 <- boot(data=toboot, statistic = boot.statistics, R=20000,  parallel = "multicore", ncpus=4)
   
   plot(bootobject1, index=3)
@@ -384,8 +342,7 @@ for (genome in lista){
   line_evolving <- c(bootobject1$t0[2], evolving$normal[2], evolving$normal[3], evolving$basic[4], evolving$basic[5], genome, "Evolving")
   line_constant<- c(bootobject1$t0[3], constant$normal[2], constant$normal[3], constant$basic[4], constant$basic[5], genome, "Constant")
   
-  
-  
+
   tot[,1:5] <- sapply(tot[,1:5], as.numeric)
   tot[,6:7] <- sapply(tot[,6:7], as.character)
   tot <- rbind(tot, line_emerging, line_evolving, line_constant)
@@ -393,9 +350,8 @@ for (genome in lista){
   
 }
 
-# tot <- tot[-c(1:3),]
 
-write.table(tot, file='Bootstraping_3SSS.tab', sep="\t", row.names = FALSE, col.names = TRUE)
+write.table(tot, file='/Results/Bootstraping_3SSS.tab', sep="\t", row.names = FALSE, col.names = TRUE)
 
 getwd()
 ########## For WU
@@ -440,5 +396,7 @@ for (genome in lista){
   
 }
 
-tot <- tot[-c(1:3),]
+write.table(tot, file='/Results/Bootstraping_UTrack.tab', sep="\t", row.names = FALSE, col.names = TRUE)
+
+
 

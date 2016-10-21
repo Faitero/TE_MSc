@@ -22,9 +22,6 @@ setwd('/home/igor/Dropbox (UCL-MN Team)/hnRNPC.NMD (1).manuscript/Alus_primates_
 hg19 <- read.table(("All_Aluexons_3SS_hg19_Distance_hg19_hg19.tab"), sep="\t",  header = TRUE)
 hg19$region <- "hg19"
 
-#panPan1<- read.table("All_Aluexons_3SS_hg19_Distance_hg38_panPan1.tab", sep="\t", header = TRUE)
-#panPan1$region <- "panPan1"
-
 panTro4<- read.table("All_Aluexons_3SS_hg19_Distance_hg38_panTro4.tab", sep="\t", header = TRUE)
 panTro4$region <- "panTro4"
 
@@ -36,10 +33,6 @@ calJac3$region <- "calJac3"
 
 nomLeu1<- read.table("All_Aluexons_3SS_hg19_Distance_hg19_nomLeu1.tab", sep="\t",  header = TRUE)
 nomLeu1$region <- "nomLeu1"
-
-#papHam1<- read.table("All_Aluexons_3SS_hg19_Distance_hg19_papHam1.tab", sep="\t",  header = TRUE)
-#papHam1$region <- "papHam1"
-
 
 
 #genome_list <-list(hg19, hg38, panTro4, panPan1, nomLeu1, papHam1, rheMac3, calJac3, tarSyr2, micMur1, otoGar1, tupBel1) 
@@ -63,8 +56,6 @@ all_table
 
 names(hg19)<- c("chr_hg19",  "start_hg19",  "end_hg19",  "aluexon",	"position_hg19",	"strand_hg19",	"distance_hg19",	"3SSS_hg19",	"WU_hg19",	"U1_hg19",	"U2_hg19", "region_hg19")
 
-#names(panPan1)<- c("chr_panPan1",	"start_panPan1",	"end_panPan1",	"aluexon",	"position_panPan1",	"strand_panPan1",	"distance_panPan1",	"3SSS_panPan1",	"WU_panPan1",	"U1_panPan1",	"U2_panPan1", "region_panPan1")
-
 names(panTro4)<- c("chr_panTro4",	"start_panTro4",	"end_panTro4",	"aluexon",	"position_panTro4",	"strand_panTro4",	"distance_panTro4",	"3SSS_panTro4",	"WU_panTro4",	"U1_panTro4",	"U2_panTro4", "region_panTro4")
 
 names(rheMac3)<- c("chr_rheMac3",	"start_rheMac3",	"end_rheMac3",	"aluexon",	"position_rheMac3",	"strand_rheMac3",	"distance_rheMac3",	"3SSS_rheMac3",	"WU_rheMac3",	"U1_rheMac3",	"U2_rheMac3", "region_rheMac3")
@@ -72,8 +63,6 @@ names(rheMac3)<- c("chr_rheMac3",	"start_rheMac3",	"end_rheMac3",	"aluexon",	"po
 names(calJac3)<- c("chr_calJac3",	"start_calJac3",	"end_calJac3",	"aluexon",	"position_calJac3",	"strand_calJac3",	"distance_calJac3",	"3SSS_calJac3",	"WU_calJac3",	"U1_calJac3",	"U2_calJac3", "region_calJac3")
 
 names(nomLeu1)<- c("chr_nomLeu1",	"start_nomLeu1",	"end_nomLeu1",	"aluexon",	"position_nomLeu1",	"strand_nomLeu1",	"distance_nomLeu1",	"3SSS_nomLeu1",	"WU_nomLeu1",	"U1_nomLeu1",	"U2_nomLeu1", "region_nomLeu1")
-
-#names(papHam1)<- c("chr_papHam1",	"start_papHam1",	"end_papHam1",	"aluexon",	"position_papHam1",	"strand_papHam1",	"distance_papHam1",	"3SSS_papHam1",	"WU_papHam1",	"U1_papHam1",	"U2_papHam1", "region_papHam1")
 
 
 #("hg19"="1", "hg38"="2", "panTro4"="3", "panPan1"="4", "nomLeu1"="5", "papHam1"="6", "rheMac3"="7", "calJac3"="8", "tarSyr2"="9", "micMur1"="10", "otoGar1"="11", "tupBel1"="12")  
